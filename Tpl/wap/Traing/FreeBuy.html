@@ -1,0 +1,85 @@
+<include file="Common/head"/>
+<style>
+    ::-moz-placeholder { color: #fff; }
+    ::-webkit-input-placeholder { color:#919191; }
+    :-ms-input-placeholder { color:#fff; } 
+</style>
+<body> 
+<div class="demo">
+    <div class="bt hd">
+        <ul>
+            <li><a href="{:U('Traing/TraingSell')}">定向交易</a></li>
+            <li class="on" ><a href="{:U('Traing/FreeSell')}">自由交易</a></li>
+        </ul>
+    </div>
+    <div class="contan bd">
+    <!-- 定向交易  S-->
+        <div class="tab tab-1" >
+            <ul>
+                <li>
+                    <a href="{:U('Traing/FreeSell')}">挂 卖</a>
+                </li>
+                <li>
+                    <a href="{:U('Traing/FreeBuy')}" class="tabdian">抢 购</a>
+                </li>
+                <li>
+                    <a href="{:U('Traing/FreeWait')}">抢购单</a>
+                </li>
+            </ul>
+        </div>
+        
+        <foreach name="info" item="v" >
+        <div class="tosellbuy">
+            <ul>
+                <li>{$v.create_time|date='Y-m-d',###}</li>
+                <li>卖家姓名：{$v.sell_username}<span>数量：{$v.num}</span></li>
+                <li>卖家账号：{$v.sell_account}<span>合计：{$v['num']+$v['fee_num']}</span></li>
+                <li class="btn{$v.id}" style="margin-top: 4%;padding-bottom: 11%;">
+                    <span>
+                        <a class="banb" href="javascript:" data="{$v.id}" onclick="surebuy(this)">抢 购</a>
+                    </span>
+                </li>
+            </ul>
+            <div style="clear: both;"></div>
+        </div>
+        </foreach>
+        
+    <!-- 定向交易 E-->
+    </div>
+</div>
+
+<!-- 弹窗 确认取消 S -->
+ <div id="light9" class="white_content confirm" style="height: 47vmin;">
+    <p>抢购成功！等待卖家确认收米，快去联系卖家转账吧~</p>
+    <a style="float:none" class="close" href="javascript:">返 回</a>
+</div>    
+<!-- 弹窗 确认取消 E -->
+
+</body> 
+</html>
+<script type="text/javascript" src="__JS__/ajax.js" ></script>
+<script type="text/javascript">
+     //确认抢购
+    function surebuy(obj){
+        var id=$(obj).attr('data');
+        var post_data={'id':id};
+        var post_url="{:U('Traing/SureFreeBuy')}";
+        $.ajax({
+           type: "POST",
+           url: post_url,
+           data:post_data,
+           dataType: "json",
+           success: function(data){
+              if(data.status==1){
+                $(".btn"+id).parents('.tosellbuy').remove();
+                $('#light9').show();
+              }else{
+                  useralert(data.message);
+              }      
+            }     
+        });
+    }
+
+</script>
+
+

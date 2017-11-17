@@ -1,0 +1,33 @@
+<include file="Common/head"/>
+<body> 
+<div class="demo">
+    <div class="bt hd">
+        <ul>
+            <li  class="on" ><a href="{:U('TraingRecord/BuyRecord')}">购买记录</a></li>
+            <li ><a href="{:U('TraingRecord/SellRecord')}">出售记录</a></li>
+        </ul>
+    </div>
+    <div class="contan bd">
+    <!-- 定向交易  S-->
+        <foreach name="info" item="v" >
+        <div class="tosellbuy">
+            <ul>
+                <li>{$v.create_time|date='Y-m-d',###}</li>
+                <li>卖家姓名：{$v.sell_username}<span>数量：{$v.num}</span></li>
+                <li>卖家账号：{$v.sell_account}<span>合计：{$v['num']+$v['fee_num']}</span></li>
+                <li style="margin-top: 4%;padding-bottom: 11%;"><span>{$v.status|StatusName}</span></li>
+            </ul>
+            <div style="clear: both;"></div>
+        </div>
+        </foreach>
+        
+    <!-- 定向交易 E-->
+    </div>
+</div>
+
+
+</body> 
+</html>
+
+
+

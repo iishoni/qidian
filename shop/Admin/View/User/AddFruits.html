@@ -1,0 +1,100 @@
+<extend name="Public/layout"/>
+<block name="style" >
+    <link rel="stylesheet" type="text/css" href="__LYUI__/css/lyui.extend.min.css">
+    <link rel="stylesheet" type="text/css" href="__ADMIN_CSS__/style.css">
+</block>
+
+<block name="main">
+   <div id="main" class="col-xs-12 col-sm-9 main" style="overflow-y: scroll;">
+        <!-- 面包屑导航 -->
+        <ul class="breadcrumb">
+            <li><i class="fa fa-map-marker"></i></li>
+            <foreach name="_menu_tab['name']" item="tab_v" >
+            <li class="text-muted">{$tab_v}</li>
+            </foreach>
+            <li class="text-muted">修改财富</li>
+        </ul>
+
+        <!-- 主体内容区域 -->
+        <div class="tab-content ct-tab-content">
+                <div class="builder formbuilder-box">
+                  <div class="panel-body">
+                    <ul class="nav-tabs nav">
+                        <li class="active" ><a href="#tab1" data-toggle="tab" aria-expanded="true">修改财富</a></li>
+                        <!-- <li >
+                            <a href="#tab2" data-toggle="tab" aria-expanded="false">减少矿石</a>
+                        </li>      -->           
+                    </ul>
+                       
+                        <div class="tab-content" >
+                            <!-- 卡片1 -->
+                            <div id="tab1" class="tab-pane active" >
+                                <div class="col-xs-12">
+                                        <div style="height:20px;" ></div>
+                                        <form action="{:U('User/AddFruits')}" method="post" class="form-horizontal form form-builder form1">
+                                        <div class="form-type-list">
+                                            <div class="form-group hidden item_id ">
+                                                <label class="left control-label">ID：</label>
+                                                <div class="right">
+                                                    <input type="hidden" class="form-control input" name="uid" value="{$info.uid}">
+                                                </div>
+                                            </div>
+
+                                           <div class="form-group item_title ">
+                                                <label class="left control-label">账号：</label>
+                                                <div class="right">
+                                                    {$info.account}
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group item_title ">
+                                                <label class="left control-label">姓名：</label>
+                                                <div class="right">
+                                                   {$info.username}
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group item_title ">
+                                                <label class="left control-label">本金：</label>
+                                                <div class="right">
+                                                    <input type="text" class="form-control input" name="common_num"  value="{$info['common_num']+0}" >
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group item_title ">
+                                                <label class="left control-label">利息：</label>
+                                                <div class="right">
+                                                    <input type="text" class="form-control input" name="income_num"  value="{$info['income_num']+0}" >
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group item_title ">
+                                                <label class="left control-label">推广：</label>
+                                                <div class="right">
+                                                    <input type="text" class="form-control input" name="recommen_num"  value="{$info['recommen_num']+0}" >
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group bottom_button_list">
+                                                <a class="btn btn-primary submit ajax-post" type="submit" target-form="form1">修改</a>
+                                                <a class="btn btn-danger return" onclick="javascript:history.back(-1);return false;">取消</a>
+                                            </div>
+                                        </div>
+                                        </form>
+
+                                </div> 
+                            </div>
+                            <!-- 卡片2 -->
+
+                            <div class="form-group"></div>
+                            
+                    </div>
+                </div>
+        </div>
+    </div>                   
+</div>
+</block>
+
+<block name="script">
+    <script type="text/javascript" src="__LYUI__/js/lyui.extend.min.js"></script>
+</block>

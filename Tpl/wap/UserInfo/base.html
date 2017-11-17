@@ -1,0 +1,101 @@
+<include file="Common/header" />
+<body style="background: #fafafa;">
+<div class="header">
+    <div class="header_l">
+      <a href="javascript:history.go(-1)"><img src="__IMG__/lpg.png" alt=""></a>
+   
+    </div>
+    <div class="header_c"><h1>用户信息</h1></div>
+    <div class="header_r"></div>
+</div>
+<div class="user">
+<form method="post" class="myform" id="myform"  >
+   <table style="width: 100%;">
+       <tr>
+           <th>姓  名：</th>
+           <td>
+           	<input type="text"  value="{$u_info['username']}"  placeholder="真实姓名" disabled="disabled">
+           </td>
+       </tr>
+       <tr>
+           <th>手机号码：</th>
+           <td>
+           	<input type="text"  value="{$u_info['mobile']}"  placeholder="手机号码" disabled="disabled">
+           </td>
+       </tr>
+       <tr>
+           <th>推广人手机：</th>
+           <td>
+           	<input type="text"  value="{$u_info['p_mobile']}"  placeholder="推荐人手机" disabled="disabled">
+           </td>
+       </tr>
+       <tr>
+           <th>注册时间：</th>
+           <td>
+           	<input type="text"  value="{$u_info['reg_date']|date='Y-m-d',###}"  placeholder="注册时间" disabled="disabled">
+           </td>
+       </tr>
+       <tr>
+           <th>身份证：</th>
+           <td>
+           	<input type="text" name="u_info[idcard]" id="card" value="{$u_info['idcard']}" <if condition="$u_info['idcard']">disabled="disabled"</if> placeholder="身份证">
+           </td>
+       </tr>
+       <tr>
+           <th>支付宝：</th>
+           <td>
+           	<input type="text"  name="u_info[zhifubao]" value="{$u_info['zhifubao']}" <if condition="$u_info['zhifubao']">disabled="disabled"</if>  placeholder="支付宝">
+           </td>
+       </tr>
+       <tr>
+           <th>微  信：</th>
+           <td>
+           	<input type="text"  name="u_info[weixin]" value="{$u_info['weixin']}" <if condition="$u_info['weixin']">disabled="disabled"</if>  placeholder="微信">
+           </td>
+       </tr>
+       <tr>
+           <th>银行名称：</th>
+           <td>
+           	<input type="text"  name="u_info[bank_name]" value="{$u_info['bank_name']}" <if condition="$u_info['bank_name']">disabled="disabled"</if>  placeholder="银行名称">
+           </td>
+       </tr>
+       <tr>
+           <th>银行卡号：</th>
+           <td>
+           	<input type="text"  name="u_info[bank_no]" value="{$u_info['bank_no']}" <if condition="$u_info['bank_no']">disabled="disabled"</if>  placeholder="银行卡号">
+           </td>
+       </tr>
+       <tr>
+           <th>开户名：</th>
+           <td>
+           	<input type="text"  name="u_info[bank_username]" value="{$u_info['bank_username']}" <if condition="$u_info['bank_username']">disabled="disabled"</if>   placeholder="开户名">
+           </td>
+       </tr>
+
+   </table>
+   </form>
+</div>
+
+<if condition="$u_info['activate'] neq '2'">
+<div style="height: 5vmin;"></div>
+<div class="submit"><a href="javascript:postform()">提交</a></div>
+<div style="height: 5vmin;"></div>
+</if>
+</body>
+</html>
+
+<script type="text/javascript">
+	function postform(){
+		var url="{:U('Userinfo')}";
+		var post_data=$('.myform').serialize();
+		$.post(url,post_data,function(data){
+         
+          if(data.status==1){
+		         msg_alert(data.message,"{:U('UserCenter/index')}");
+          }else{
+             msg_alert(data.message);
+          }
+      },'json')
+	}
+</script>
+

@@ -1,0 +1,118 @@
+<include file="Common/head"/>
+<style>
+    ::-moz-placeholder { color: #fff; }
+    ::-webkit-input-placeholder { color:#919191; }
+    :-ms-input-placeholder { color:#fff; } 
+</style>
+
+<body> 
+<div class="demo">
+    <div class="bt hd">
+        <ul>
+            <li class="on" ><a href="{:U('Traing/TraingSell')}">定向交易</a></li>
+            <li><a href="{:U('Traing/FreeSell')}">自由交易</a></li>
+        </ul>
+    </div>
+    <div class="contan bd">
+    <!-- 定向交易  S-->
+        <div class="tab tab-1" >
+            <ul>
+                <li>
+                    <a href="{:U('Traing/TraingSell')}" class="tabdian">出 售</a>
+                </li>
+                <li>
+                    <a href="{:U('Traing/TraingBuy')}">购 买</a>
+                </li>
+                <li>
+                    <a href="{:U('Traing/TraingWait')}">待收米</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="tosell">
+            <div class="box" >
+                <form name="f2" action="{:U('Traing/SaveSell')}" method="post" >
+                    <table style="width: 100%;">
+                        <tr>
+                            <th>买家账号</th>
+                            <td><input type="text" class="txt" name="account" placeholder="输入买家账号"></td>
+                        </tr>
+                        <tr>
+                            <th>买家姓名</th>
+                            <td><input type="text" class="txt" name="username" placeholder="输入买家姓名"></td>
+                        </tr>
+                        <tr>
+                            <th>出售数量</th>
+                            <td><input type="text" class="txt" name="num" placeholder="输入整数"></td>
+                        </tr>
+                        <tr>
+                            <th>手续费</th>
+                            <td><input id="fee" type="text" disabled="true" data="{$fee}" value="{$fee}%"></td>
+                        </tr>
+                        <tr>
+                            <th>合计数量</th>
+                            <td><input id="total" type="text" disabled="true" value='0' placeholder=""></td>
+                        </tr>
+                    </table>
+
+                    <p style="margin-top:7%;margin-bottom:3%;"><a href="javascript:savedata()">确认出售</a></p>
+                    <p>提示：定向出售矿石给玩家系统收取5%的手续费。</p>
+                </form>
+            </div>
+            
+            <div class="box" style="display:none" >
+                <p style="font-size: 5vmin;color: #fff;margin: 13%;text-shadow: 2px 1px 2px #b0a47f;margin-bottom: 25%;">恭喜您！您的矿石已成功出售，等待买家确认购买~可在待收米页面查看订单状态~</p>
+                <p style="margin-top:7%;margin-bottom:3%;"><a href="javascript:" onclick="showbox(this)" >继续出售</a></p> 
+            </div>
+        </div>
+    <!-- 定向交易 E-->
+    </div>
+</div>
+
+<!-- 数据提交js -->
+<script type="text/javascript" src="__JS__/ajax.js" ></script>
+<script type="text/javascript">
+    $("input[name='num']").keyup(function(){
+        var num_old=$(this).val();
+        if(num_old!='')
+            var num=parseInt(num_old);
+        var fee=Number($("#fee").attr('data'));
+        var total=num*fee/100;
+        total=total+num;
+        total=Math.round(total*100)/100;//保留两位小数
+        if(num_old=='' || num_old==null)
+            total='0';
+        $('#total').val(total);
+    });
+
+    //表单提交
+    function savedata(){
+
+       var post_url = $("form[name=f2]").attr('action');
+       var post_data= $("form[name=f2]").serialize();
+       $.ajax({
+           type: "POST",
+           url: post_url,
+           data:post_data,
+           dataType: "json",
+           success: function(data){
+              if(data.status==1){
+                editdata();//修改仓库数据
+                $('.txt').val('');
+                $('#total').val('0');
+                $('.box').eq(0).hide();
+                $('.box').eq(1).show();
+              }else{
+                  useralert(data.message);
+              }      
+            }     
+    });
+   }
+
+   function showbox(obj){
+        $(obj).parents('.box').hide().siblings('.box').show();
+   }
+</script>
+
+</body> 
+</html>

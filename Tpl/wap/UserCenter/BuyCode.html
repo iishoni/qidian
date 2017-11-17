@@ -1,0 +1,114 @@
+﻿<include file="Common/header" />
+    <style type="text/css">
+        
+       .list tr:nth-child(even)
+        {
+            text-align: center;
+            line-height: 14vmin;
+            color: #626262;
+            background: #f5f5f5;
+        }
+    </style>
+<body>
+<div class="header">
+    <div class="header_l">
+      <a href="javascript:history.go(-1)"><img src="__IMG__/lpg.png" alt=""></a>
+   
+    </div>
+    <div class="header_c"> <h1>抢单币</h1></div>
+    <div class="header_r"></div>
+</div>
+
+<div class="ticket">
+    <form action="" method="post" >
+    <table>
+        <tr>
+            <th>接收人手机号：</th>
+            <td><input type="text" name="to_mobile" class="textbt"></td>
+        </tr>
+        <tr>
+            <th>赠送数量：</th>
+            <td><input type="text" name="to_num" class="textbt"></td>
+        </tr>
+        <tr>
+            <th>持有数量：</th>
+            <td><input type="text" class="textbt" disabled="true" placeholder="{$count}"></td>
+        </tr>
+        <tr>
+            <th>二级密码：</th>
+            <td><input type="password" name="pwd_two" class="textbt"></td>
+        </tr>
+        <tr>
+            <th><img src="{:U('UserCenter/verify')}" alt="" id="imgcode" onclick="change_code()" style="width: 80%;vertical-align: middle;"></th>
+            <td><input type="text" class="textbt" name="code" placeholder="图形码"></td>
+        </tr>
+    </table>
+    </form>
+    <a href="javascript:postform()" class="qzanbt">确认</a>
+
+</div>
+
+
+<div class="level" style="margin-right: 3%;margin-left: 3%;">
+        <div class="level_tablebb" style="border:1px solid #e5e5e5;">
+            <table style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>类型</th>
+                        <th>赠送/接收人手机</th>
+                        <th>数量</th>
+                        <th>时间</th>
+                    </tr>
+                </thead>
+                <tbody class="list" >
+                    <foreach name="info" item="v" >
+                    <!-- 抢单扣除 -->
+                    <eq name="v['type']" value='2' >
+                        <tr>
+                        <td style="position: absolute;width: 51%;">抢单券扣除 </td>
+                        <td></td>
+                        <td>{$v['num']}</td>
+                        <td>{$v['datetime']|date='Y-m-d',###}</td>
+                        </tr> 
+                    <else /> 
+                        <tr  >
+                            <td <eq name="v['type']" value='0' >class="hdan"</eq> >{$v['type']==0?'获得':'赠送'}</td>
+                            <td <eq name="v['type']" value='0' >class="hdan"</eq> >{$v['to_mobile']}</td>
+                            <td <eq name="v['type']" value='0' >class="hdan"</eq> >{$v['num']}</td>
+                            <td <eq name="v['type']" value='0' >class="hdan"</eq> >{$v['datetime']|date='Y-m-d',###}</td>
+                        </tr> 
+                    </eq>
+                    </foreach>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div style="height: 20vmin;"></div>
+</body>
+</html>
+
+<script type="text/javascript">
+    function change_code(){
+      var verifyURL="{:U('UserCenter/verify')}";
+        $("#imgcode").attr("src",verifyURL);
+        return false;
+    }
+
+
+    function postform(){
+        var url="{:U('UserCenter/SaveCode')}";
+        var post_data=$('form').serialize();
+        $.post(url,post_data,function(data){
+                if(data.status=='0'){
+                    change_code();
+                    msg_alert(data.message);
+                }else{
+                    msg_alert(data.message);
+                    location.reload();
+                }
+                
+            },'json')
+    }
+</script>

@@ -1,0 +1,86 @@
+<include file="Common/header" />
+<style type="text/css">
+	.a-upload img{
+		max-height: 20vmin;
+		max-width: 20vmin;
+	}
+	.gboy_button {
+			    background: #D0EEFF;
+			    border: 1px solid #99D3F5;
+			    border-radius: 4px;
+			    padding: 4px 12px;
+			    color: #1E88C7;
+			    text-decoration: none;
+			    line-height: 20px;
+			}
+</style>
+<body>
+<div class="header">
+    <div class="header_l">
+      <a href="{:U('UserCenter/index')}"><img src="__IMG__/lpg.png" alt=""></a>
+   
+    </div>
+    <div class="header_c"> <h1>提款记录</h1></div>
+    <div class="header_r"></div>
+    <!-- <span><a href=""><img src="" alt=""></a></span> -->
+</div>
+
+<div class="demo">
+ 
+    <div style="background: #f2f2f2;height: 2vmin;"></div>
+    <div class="contan bd">
+   
+        <ul>
+			<volist name="list" id="foo">
+            <div class="record">
+                <p class="{$foo['_status_class']}">{$foo['pay_type']|pay_type} <i class="iconfont">{$foo['_status_ico']}</i> <span class="jiang">￥{$foo['money']}</span></p>
+                <p>{$foo['datetime']|date='Y-m-d H:i:s',###}  <span class="shownext" >{$foo['_status_text']}<i class="iconfont middle">&#xe655;</i></span></p>
+				 <if condition="!empty($foo['status'])">
+				  <volist name="foo['_play']" id="p">
+				  <div class="record_bottom">
+                    <p style="color:#e93325;">打款人姓名：{$p['a_username']}</p>
+                    <p style="color:#e93325;">手机号码：{$p['a_account']}</p>
+                    <p style="color:#e98125;">推荐人姓名：{$p['a_push_username']}</p>
+                    <p style="color:#e98125;">推荐人手机：{$p['a_push_mobile']}</p>
+                    <p style="color:#999898;">款：{$p['money']} </p>
+                    <p style="color:#999898;">状态：{$p['_status_text']}</p>
+                    <p style="color:#999898;">时间：{$p['_datetime']|date='Y-m-d H:i:s',###}</p>
+					<if condition="$p['status'] eq 1">
+					<div class="uploads">
+						
+						<form action="{:U('ReceiptHelp')}" method="post" >
+						<a href="{$p['play_pic']}" class="a-upload">
+						<img src="{$p['play_pic']}" alt=""></a>
+						<input  class="gboy_button" type="submit" value="确认收款" name="" id="">
+						<input  type="hidden" value="{$p['id']}" name="order_id" >
+						</form>
+					</div>
+					
+					</if>
+				  </div>
+				   
+				  </volist>
+				  </if>
+            </div>
+            <div style="background: #f2f2f2;height: 2vmin;"></div>
+			</volist>
+			
+			
+       
+            
+        </ul>
+
+   
+    </div>
+</div>
+<script type="text/javascript">jQuery(".demo").slide();</script>
+
+</body>
+</html>
+<script type="text/javascript">
+    $('span.shownext').click(function(){
+        $(this).parents('.record').siblings('.record').find('.record_bottom').slideUp();
+        $(this).parents('.record').find('.record_bottom').slideToggle();
+    });
+
+</script>

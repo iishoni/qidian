@@ -1,0 +1,1 @@
+a:9:{s:9:"m_lx_hour";s:4:"1,24";s:8:"m_lx_num";s:5:"15,10";s:9:"m_lx_time";s:1:"1";s:10:"m_val_time";s:1:"0";s:10:"m_team_rem";s:6:"3,8,15";s:12:"m_team_level";s:5:"1,3,5";s:9:"m_team_lv";s:6:"12,4,2";s:11:"m_team_time";s:3:"360";s:9:"m_tj_time";s:1:"0";}

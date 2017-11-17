@@ -1,0 +1,38 @@
+<include file="Common/head"/>
+<body> 
+<style>
+    ::-moz-placeholder { color: #fff; }
+    ::-webkit-input-placeholder { color:#919191; }
+    :-ms-input-placeholder { color:#fff; } 
+</style>
+
+<div class="demo">
+    <div class="bt hd">
+        <ul>
+            <li  ><a href="{:U('TraingRecord/BuyRecord')}">购买记录</a></li>
+            <li class="on" ><a href="{:U('TraingRecord/SellRecord')}">出售记录</a></li>
+        </ul>
+    </div>
+    <div class="contan bd">
+    <!-- 定向交易  S-->
+        <foreach name="info" item="v" >
+        <div class="tosellbuy">
+            <ul>
+                <li>{$v.create_time|date='Y-m-d',###}</li>
+                <li>买家姓名：{$v.buy_username}<span>数量：{$v.num}</span></li>
+                <li>买家账号：{$v.buy_account}<span>合计：{$v['num']+$v['fee_num']}</span></li>
+                <li style="margin-top: 4%;padding-bottom: 11%;"><span>{$v.status|StatusName}</span></li>
+            </ul>
+            <div style="clear: both;"></div>
+        </div>
+        </foreach>
+    <!-- 定向交易 E-->
+    </div>
+</div>
+
+
+</body> 
+</html>
+
+
+

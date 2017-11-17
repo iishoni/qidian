@@ -1,0 +1,177 @@
+<include file="Common/header" />
+    <style>
+        #send_sub{
+             background: #e93325;
+             border-radius: 5px;
+             color: #fff;
+             padding: 3vmin 5vmin;
+             border:0;
+        }
+        #send_sub[disabled]{background:#ccc;}
+    </style>
+<body>
+<div class="header">
+    <div class="header_l">
+      <a href="javascript:history.back()"><img src="__IMG__/lpg.png" alt=""></a>
+   
+    </div>
+    <div class="header_c"><h1>找回密码</h1></div>
+    <div class="header_r"></div>
+</div>
+    <form class="myform" >
+<div class="reggis">
+    <ul>
+        <li><i class="iconfont">&#xe615;</i> <input type="text" maxlength="11" class="inputbb" name="mobile" placeholder="请输入手机号码"></li>
+        <li><i class="iconfont">&#xe6b2;</i> <input type="text" class="inputbb"  maxlength="6" name="code" placeholder="请输入校验码" style="width: 50%;"> 
+            <span>
+                
+                <input type="button" name="send_sub" id="send_sub" onclick="get_mobile_code()" value="获取验证码">
+            </span>
+        </li>
+        <li><i class="iconfont">&#xe61b;</i> <input type="password" class="inputbb" name="password" placeholder="请输入密码"></li>
+        <li><i class="iconfont">&#xe61b;</i> <input type="password" class="inputbb" name="pwdconfirm" placeholder="再次确认密码"></li>
+    </ul>
+</div>
+
+<div style="height: 5vmin;"></div>
+<div class="submit"><a id="register" href="javascript:">确认找回</a></div>
+
+    </form>
+</body>
+</html>
+<script>
+    $(function(){
+        
+        $('#register').click(function(){
+            //校验数据
+            var mobile=$("input[name='mobile']").val();
+            var code=$("input[name='code']").val();
+            var password=$("input[name='password']").val();
+            var pwdconfirm=$("input[name='pwdconfirm']").val();
+
+            if(!checkmobile(mobile)){
+                $("input[name='mobile']").focus();
+                return false;
+            }
+
+            if(code=='' || code==null){
+                $("input[name='code']").focus();
+                return false;
+            }
+            if(password=='' || password==null){
+                $("input[name='password']").focus();
+                return false;
+            }
+            if(pwdconfirm=='' || pwdconfirm==null){
+                $("input[name='pwdconfirm']").focus();
+                return false;
+            }           
+            
+        
+            if(pwdconfirm !=password){
+                
+                msg_alert('两次输入密码不一致');
+                return false;
+            }
+            
+        
+        
+
+            $.post('{:U("setpsw")}',$('.myform').serialize(),function(data){
+              
+                if(data.status=='0'){
+                   msg_alert(data.message);
+                }else{
+                    msg_alert(data.message,data.url);
+                }
+                
+            },'json')
+            
+        })
+    });
+
+    //验证手机
+    function checkmobile(mobile){
+        if(mobile=='' || mobile==null){
+                return false;
+        }
+        if(!/^1[34578]\d{9}$/.test(mobile)){
+            //alert('手机号码有误');
+            alert('手机号码有误');
+            return false;
+        }
+        return true ;
+    }
+
+
+    //发送验证码
+    var intime="{$Think.session.set_time}";
+    var timenow = "{:time()}";
+    var bet=(parseInt(intime)+60)-parseInt(timenow);
+    $(document).ready(function(){
+        if(bet>0){
+            RemainTime();
+        }
+    });
+
+    function get_mobile_code(){
+        var mobile = $("input[name='mobile']").val();
+        if(!checkmobile(mobile)) 
+        { 
+            $("input[name='mobile']").focus();
+            return false;
+        }
+        //验证手机号
+           $.ajax({
+             type: "post",
+             url: "{:U('Login/SendSMS')}",
+             data: {mobile:mobile,type:'pwd'},
+             dataType: "json",
+             success: function(data){
+                    if(data.state==1){
+                       alert(data.message);
+                       RemainTime();
+                    }else{
+                        alert(data.message);
+                    }
+
+                   
+              }
+           });
+
+    };
+
+    var iTime = 59;
+    var Account;
+    if(bet>0){
+        iTime=bet;
+    }
+    function RemainTime(){
+        document.getElementById('send_sub').disabled = true;
+        var iSecond,sSecond="",sTime="";
+        if (iTime >= 0){
+            iSecond = parseInt(iTime%60);
+            iMinute = parseInt(iTime/60)
+            if (iSecond >= 0){
+                if(iMinute>0){
+                    sSecond = iMinute + "分" + iSecond + "秒";
+                }else{
+                    sSecond = iSecond + "秒";
+                }
+            }
+            sTime=sSecond;
+            if(iTime==0){
+                clearTimeout(Account);
+                sTime='获取手机验证码';
+                iTime = 59;
+                document.getElementById('send_sub').disabled = false;
+            }else{
+                Account = setTimeout("RemainTime()",1000);
+                iTime=iTime-1;
+            }
+        }else{
+            sTime='没有倒计时';
+        }
+        document.getElementById('send_sub').value = sTime;
+    }   
+    </script>

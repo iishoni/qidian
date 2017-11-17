@@ -1,0 +1,109 @@
+<extend name="Public/layout"/>
+<block name="style" >
+    <link rel="stylesheet" type="text/css" href="__LYUI__/css/lyui.extend.min.css">
+    <link rel="stylesheet" type="text/css" href="__ADMIN_CSS__/style.css">
+</block>
+
+<block name="main">
+   <div id="main" class="col-xs-12 col-sm-9 main" style="overflow-y: scroll;">
+        <!-- 面包屑导航 -->
+        <ul class="breadcrumb">
+            <li><i class="fa fa-map-marker"></i></li>
+            <foreach name="_menu_tab['name']" item="tab_v" >
+            <li class="text-muted">{$tab_v}</li>
+            </foreach>
+             <li class="text-muted">手续费</li>
+        </ul>
+
+        <!-- 主体内容区域 -->
+        <div class="tab-content ct-tab-content">
+            <div class="panel-body">
+                <div class="builder formbuilder-box">
+                    <div class="builder-tabs builder-form-tabs">
+                        <ul class="nav nav-tabs">
+                            <li class="">
+                                <a href="{:U('Config/group',array('group'=>1))}">基本</a>
+                            </li>
+                            <li >
+                               <a href="{:U('Config/system')}">奖金设置</a>
+                            </li>
+                            <li class="active">
+                               <a href="{:U('Config/fee')}">提现设置</a>
+                            </li>
+                            <li class="">
+                                <a href="{:U('Config/turntable')}">利息设置</a>
+                            </li>
+                            <li class="">
+                                <a href="{:U('Config/group',array('group'=>3))}">网站开关</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="form-group"></div>
+                    <div class="builder-container" >
+                        <div class="row" >
+                            <div class="col-xs-12" >
+                                <form action="{:U('Config/fee')}" method="post" class="form-horizontal form form-builder">
+                                <div class="form-type-list">
+
+                                   <div class="form-group ">
+                                        <label class="left control-label">提现开关：</label>
+                                        <div class="right">
+                                            <div class="radio-inline cui-control cui-radio">
+                                                <label for="config[ADMIN_TABS]0">
+                                                    <input type="radio" id="config[ADMIN_TABS]0" class="radio" name="m_is_open_w" value="1" <eq name="info['m_is_open_w']" value='1' > checked="true"</eq> > 
+                                                    <span class="cui-control-indicator"></span>
+                                                    <span>开启</span>
+                                               </label>
+                                            </div>
+                                            <div class="radio-inline cui-control cui-radio">
+                                                    <label for="config[ADMIN_TABS]1">
+                                                        <input type="radio" id="config[ADMIN_TABS]1" class="radio" name="m_is_open_w" value="0" <eq name="info['m_is_open_w']" value='0' > checked="true"</eq> > 
+                                                        <span class="cui-control-indicator"></span>
+                                                        <span>关闭</span>
+                                                    </label>
+                                            </div>        
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group item_config[WEB_SITE_TITLE] ">
+                                        <label class="left control-label">每天提现次数：</label>
+                                        <div style="width:200px" class="input-group">
+                                            <input type="text" name="m_tj_count" class="form-control" value="{$info.m_tj_count}" >
+                                            <span class="input-group-addon">次</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group item_config[WEB_SITE_TITLE] ">
+                                        <label class="left control-label">提现倍数：</label>
+                                        <div style="width:200px" class="input-group">
+                                            <input type="text" name="m_w_money" class="form-control" value="{$info.m_w_money}" >
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group item_config[WEB_SITE_TITLE] ">
+                                        <label class="left control-label">每天提现时间：</label>
+                                        <div style="width:200px" class="input-group">
+                                            <input type="text" name="m_tx_time" class="form-control" value="{$info.m_tx_time}" >
+                                        </div>
+                                    </div>
+
+                                <div class="form-group"></div>
+                                <div class="form-group bottom_button_list">
+                                    <a class="btn btn-primary submit ajax-post" type="submit" target-form="form-builder">确定</a>
+                                    <a class="btn btn-danger return" onclick="javascript:history.back(-1);return false;">取消</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>                   
+</div>
+</block>
+
+<block name="script">
+    <script type="text/javascript" src="__LYUI__/js/lyui.extend.min.js"></script>
+</block>

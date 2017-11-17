@@ -1,0 +1,164 @@
+﻿<include file="Common/header" />
+ <script type="text/javascript" src="__JS__/jquery1.42.min.js"></script>
+<body>
+<div class="header">
+    <div class="header_l">
+      <a href="__ROOT__/"><img src="__IMG__/lpg.png" alt=""></a>
+    </div>
+    <div class="header_c"> <h1>个人中心</h1></div>
+    <div class="header_r"><a href="{:U('UserInfo/index')}" style="color: #fff;margin-left: 5%;position: relative;font-size:16px;">设置</a></div>
+</div>
+
+<div class="wallet">
+    <p><label><img id="face_url" width="200" height="200" src="{$u_info['head_img']}" alt=""></label>
+	</p>
+    <p>{$u_info['username']}</p>
+</div>
+
+<div class="slideTxtBox">
+    <div class="walletcztx hd">
+        <ul>
+            <li style="color:#fec602;">{$u_info['level']|user_level}</li>
+            <li id="linoo">诚信值：{$s_info['wealth_num']+0}</li>
+        </ul>
+    </div>
+
+</div>
+
+<div class="mian_zx">
+    <h3>个人财富</h3>
+    <div class="mian_zxl">
+        <ul>
+            <li>一般积分：{$s_info['common_num']+0}</li>
+            <li>收益积分：{$s_info['income_num']+0}</li>
+            <li>推广积分：{$s_info['recommen_num']+0}</li>
+            <li>消费积分：{$s_info['fee_num']+0}</li>
+        </ul>
+    </div>
+    <div class="mian_zxr">
+        <p><a href="{:U('Panic/GetMoney')}" style="background: #fd9500;">提现</a></p>
+        <p><a href="javascript:;">兑换</a></p>
+    </div>
+</div>
+<div class="hstbj"></div>
+<style type="text/css">
+  
+
+</style>
+<div class="mian_qd">
+    <h3>财富冻结</h3>
+
+    <ul class="caif">
+        <li >
+            <a href="{:U('Growth/index')}" style="width: 49.5%;">
+                <i class="iconfont">&#xe605;</i>
+                <p>未解冻红利</p>
+            </a>
+        </li>
+         <li >
+             <a href="{:U('Growth/djmoney')}" class="bordertop" style="width: 49.5%;">
+                <i class="iconfont">&#xe734</i>
+                <p>未解冻收益</p>
+            </a>
+        </li> 
+    </ul>
+    <div class="clear"></div>
+</div>
+<div class="hstbj"></div>
+
+<div class="mian_qd">
+    <h3>推广</h3>
+
+    <ul>
+        <li>
+            <a href="javascript:ewm()" style="border-bottom: 1px solid #e5e5e5">
+                <i class="iconfont">&#xe669;</i>
+                <p>推广邀请</p>
+            </a>
+        </li>
+      <li >
+             <a href="{:U('UserCenter/ActivateCode')}" style="border-bottom: 1px solid #e5e5e5">
+                <i class="iconfont">&#xe630</i>
+                <p>激活码</p>
+            </a>
+        </li>
+        <li>
+            <a href="{:U('UserCenter/BuyCode')}" style="border-bottom: 1px solid #e5e5e5">
+                <i class="iconfont">&#xe747</i>
+                <p>抢单币</p>
+            </a>
+        </li>
+		<!--
+        <li>
+            <a href="<{:U('member/freeze/team')}>" > 
+                <i class="iconfont">&#xe64b;</i>
+                <p>团队收益</p>
+            </a>
+        </li>
+		-->
+        <li>
+            <a href="{:U('UserCenter/MyTeam')}" style="border-bottom: 1px solid #e5e5e5">
+                <i class="iconfont">&#xe60a;</i>
+                <p>我的团队</p>
+            </a>
+        </li>
+         <li>
+            <a href="{:U('Order/GiveHelp')}">
+                <i class="iconfont">&#xe628;</i>
+                <p>抢单记录</p>
+            </a>
+        </li>
+        <li>
+            <a href="{:U('Order/ReceiptHelp')}">
+                <i class="iconfont" style="font-weight: normal;">&#xe6d2;</i>
+                <p>提款记录</p>
+            </a>
+        </li>
+	 
+        <li>
+            <a href="{:U('Growth/UserPay')}" >
+                <i class="iconfont">&#xe628</i>
+                <p>会员打款</p>
+            </a>
+        </li>
+         <li>
+             <a href="{:U('UserCenter/UserWarn')}" >
+                <i class="iconfont">&#xe629</i>
+                <p>会员预警</p>
+            </a>
+            
+        </li>
+       
+        
+        <li >
+            <a href="" class="bordertop">
+               
+            </a>
+        </li>  <li >
+            <a href="" class="bordertop">
+               
+            </a>
+        </li>
+    </ul>
+    <div class="clear"></div>
+</div>
+	<include file="Common/footer" />
+
+    <script type="text/javascript">
+    function ewm(){
+
+            layer.open({
+              type: 1,
+              title: false,
+    
+              shadeClose: true,
+              closeBtn: false,
+              shade: 0.5,
+              area: ['220px', '220px'],
+              content: '<img width="220" height="220" src="http://qr.liantu.com/api.php?el=l&amp;w=265&amp;m=10&amp;text=http://{$_SERVER['HTTP_HOST']}/Home/Login/RegUser/mobile/{$u_info.mobile}" style="display:block;margin:0 auto;">' //iframe的url
+            }); 
+            
+        } 
+</script>
+</body>
+</html>

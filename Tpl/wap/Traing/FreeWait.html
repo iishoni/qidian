@@ -1,0 +1,161 @@
+<include file="Common/head"/>
+<style>
+    ::-moz-placeholder { color: #fff; }
+    ::-webkit-input-placeholder { color:#919191; }
+    :-ms-input-placeholder { color:#fff; } 
+</style>
+<body> 
+<div class="demo">
+    <div class="bt hd">
+        <ul>
+            <li><a href="{:U('Traing/TraingSell')}">定向交易</a></li>
+            <li class="on" ><a href="{:U('Traing/FreeSell')}">自由交易</a></li>
+        </ul>
+    </div>
+    <div class="contan bd">
+    <!-- 自由交易  S-->
+        <div class="tab tab-1" >
+            <ul>
+                 <li>
+                    <a href="{:U('Traing/FreeSell')}">挂 卖</a>
+                </li>
+                <li>
+                    <a href="{:U('Traing/FreeBuy')}">抢 购</a>
+                </li>
+                <li>
+                    <a href="{:U('Traing/FreeWait')}" class="tabdian">抢购单</a>
+                </li>
+            </ul>
+        </div>
+        
+        <foreach name="info" item="v" >
+        <div class="tosellbuy">
+            <ul>
+                <if condition="$v['sell_id'] eq $userid" >
+                    <eq name="v[status]" value="0" >
+                    <li>{$v.create_time|date='Y-m-d',###}</li>
+                    <li>卖家姓名：{$v.sell_username}<span>数量：{$v.num}</span></li>
+                    <li>等待买家确认抢购<span>合计：{$v['num']+$v['fee_num']}</span></li>
+                    <li class="btn{$v.id}" style="margin-top: 4%;padding-bottom: 3%;height: 7vmin;">
+                        <span>
+                            <a class="banb" href="javascript:" data="{$v.id}" onclick="showquit(this)" >取消挂卖</a>
+                        </span>
+                    </li>
+                    </eq>
+                    <!-- 已被抢购单 -->
+                    <eq name="v[status]" value="1" >
+                    <li>{$v.create_time|date='Y-m-d',###}</li>
+                    <li>买家姓名：{$v.buy_username}<span>数量：{$v.num}</span></li>
+                    <li>卖家账号：{$v.buy_account}<span>合计：{$v['num']+$v['fee_num']}</span></li>
+                    <li class="btn{$v.id}" style="margin-top: 4%;padding-bottom: 3%;height: 7vmin;">
+                        <span>
+                            <a class="banb" href="javascript:" data="{$v.id}" onclick="showsure(this)" >确认收米</a>
+                        </span>
+                    </li>
+                    </eq>
+                <!-- 我抢购过来的单 -->
+                <else />
+                    <li>{$v.create_time|date='Y-m-d',###}</li>
+                    <li>卖家姓名：{$v.sell_username}<span>数量：{$v.num}</span></li>
+                    <li>卖家账号：{$v.sell_account}<span>合计：{$v['num']+$v['fee_num']}</span></li>
+                    <li style="margin-top: 4%;padding-bottom: 3%;height: 7vmin;"><span>等待卖家确认收米</span></li>
+                </if>
+            </ul>
+            <div style="clear: both;"></div>
+        </div>
+        </foreach>
+
+    <!-- 自由交易 E-->
+    </div>
+</div>
+<!-- 弹窗 确认收米 S -->
+ <div id="light10" class="white_content cancel">
+    <p>请在确认收米前核实收到买家的转账，是否确认收米？</p>
+    <a href="javascript:"  class="close" >返 回</a>
+    <a href="javascript:" onclick="suresell()"  class="close qunx">确认收米</a>
+    <input type="hidden" >
+</div>    
+<!-- 弹窗 确认收米 E -->
+
+<!-- 弹窗 已确认收米 S -->
+ <div id="light9" class="white_content confirm">
+    <p>已确认收米，交易完成，可在交易记录中查看交易详情~</p>
+    <a href="javascript:" style="float:none"  class="close" >返 回</a>
+</div>    
+<!-- 弹窗 已确认收米 E -->
+
+<!-- 弹窗 取消订单 S -->
+ <div id="light11" class="white_content cancel">
+    <p>确认要取消挂卖？</p>
+    <a href="javascript:"  class="close" >返 回</a>
+    <a href="javascript:" onclick="quitsell()"  class="close qunx">确认取消</a>
+    <input type="hidden" >
+</div>    
+<!-- 弹窗 取消订单 E -->
+
+<!-- 弹窗 取消 S -->
+ <!-- <div id="light12" class="white_content confirm">
+    <p>您已成功取消挂卖</p>
+    <a href="javascript:" style="float:none"  class="close" >返 回</a>
+</div>     -->
+<!-- 弹窗 取消 E -->
+</body> 
+</html>
+<script type="text/javascript" src="__JS__/ajax.js" ></script>
+<script type="text/javascript">
+  
+    function showsure(obj){
+        $('#light10 input').val($(obj).attr('data'))
+        $('#light10').show();
+    }
+    function showquit(obj){
+        $('#light11 input').val($(obj).attr('data'))
+        $('#light11').show();
+    }
+
+     //确认收米
+    function suresell(){
+        var id=$('#light10 input').val();
+        var post_data={'id':id};
+        var post_url="{:U('Traing/SureFreeSell')}";
+        $.ajax({
+           type: "POST",
+           url: post_url,
+           data:post_data,
+           dataType: "json",
+           success: function(data){
+              if(data.status==1){
+                $(".btn"+id).parents('.tosellbuy').remove();
+                $('#light9').find('p').text(data.message);
+                $('#light9').show();
+              }else{
+                  useralert(data.message);
+              }      
+            }     
+        });
+    }
+
+    //取消收米
+    function quitsell(){
+        var id=$('#light11 input').val();
+        var post_data={'id':id};
+        var post_url="{:U('Traing/QuitFreeSell')}";
+        $.ajax({
+           type: "POST",
+           url: post_url,
+           data:post_data,
+           dataType: "json",
+           success: function(data){
+              if(data.status==1){
+                editdata();//修改仓库数据
+                $(".btn"+id).parents('.tosellbuy').remove();
+                $('#light9').find('p').text(data.message);
+                $('#light9').show();
+              }else{
+                  useralert(data.message);
+              }      
+            }     
+        });
+    }
+
+    </script>

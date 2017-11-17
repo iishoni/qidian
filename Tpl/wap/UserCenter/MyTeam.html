@@ -1,0 +1,83 @@
+﻿<include file="Common/header" />
+    <style type="text/css">
+        
+       .list tr:nth-child(even)
+        {
+            text-align: center;
+
+            color: #626262;
+            background: #f5f5f5;
+        }
+		.level_tablebb tr td.hdan{
+			line-height:26px;
+			color: #626262;
+		}
+        .level_tablebb tr td,.level_tablebb tr th{
+            border: 1px solid #ccc;
+			line-height:26px;
+        }
+    </style>
+	
+<script type="text/javascript"> 
+function getRTime(){ 
+var EndTime= new Date('{$info['end_time']}'); //截止时间 
+var NowTime = new Date(); 
+var t =EndTime.getTime() - NowTime.getTime(); 
+var d=Math.floor(t/1000/60/60/24); 
+var h=Math.floor(t/1000/60/60%24); 
+var m=Math.floor(t/1000/60%60); 
+var s=Math.floor(t/1000%60); 
+
+	if(s<0){
+
+		$('.time').html('已到期，奖励清零');
+	}else{
+		document.getElementById("t_d").innerHTML = d + "天"; 
+		document.getElementById("t_h").innerHTML = h + "时"; 
+		document.getElementById("t_m").innerHTML = m + "分"; 
+		document.getElementById("t_s").innerHTML = s + "秒"; 
+	}
+
+} 
+// setInterval(getRTime,1000); 
+</script> 
+	
+<body>
+<div class="header">
+    <div class="header_l">
+      <a href="javascript:history.go(-1)"><img src="__IMG__/lpg.png" alt=""></a>
+    </div>
+    <div class="header_c"> <h1>我的团队</h1></div>
+    <div class="header_r"></div>
+</div>
+
+<div class="level">
+        <div class="level_tablebb" style="border:1px solid #e5e5e5;">
+            <table style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th style="width:18%" >级别</th>
+                        <th style="width:90%" >会员人数</th>
+                    </tr>
+                </thead>
+                <tbody class="list" >
+                    <foreach name="team_info" key="k" item="v" >
+                        <tr  >
+                            <td class="hdan" style="width:18%" >
+                                <if condition="$k eq 1">直推会员</if>
+                                <if condition="$k eq 2">间推会员</if>
+                                <if condition="$k eq 3">三到七代</if>
+                            </td>
+                            <td class="hdan" style="width:90%" >{$v}人</td>
+                        </tr> 
+                    </foreach>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div style="height: 20vmin;"></div>
+</body>
+</html>
+

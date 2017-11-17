@@ -1,0 +1,123 @@
+<extend name="Public/layout"/>
+<block name="style" >
+    <link rel="stylesheet" type="text/css" href="__LYUI__/css/lyui.extend.min.css">
+    <link rel="stylesheet" type="text/css" href="__ADMIN_CSS__/style.css">
+</block>
+
+<block name="main">
+   <div id="main" class="col-xs-12 col-sm-9 main" style="overflow-y: scroll;">
+        <!-- 面包屑导航 -->
+        <ul class="breadcrumb">
+            <li><i class="fa fa-map-marker"></i></li>
+            <foreach name="_menu_tab['name']" item="tab_v" >
+            <li class="text-muted">{$tab_v}</li>
+            </foreach>
+             <li class="text-muted">拆分倍数</li>
+        </ul>
+
+        <!-- 主体内容区域 -->
+        <div class="tab-content ct-tab-content">
+            <div class="panel-body">
+                <div class="builder formbuilder-box">
+                    <div class="builder-tabs builder-form-tabs">
+                        <ul class="nav nav-tabs">
+                            <li >
+                                <a href="{:U('Config/group',array('group'=>1))}">基本</a>
+                            </li>
+                            <li class="active" >
+                                <a href="{:U('Config/system')}">奖金设置</a>
+                            </li>
+                            <li class="">
+                                 <a href="{:U('Config/fee')}">提现设置</a>
+                            </li>
+                            <li class="">
+                                <a href="{:U('Config/turntable')}">利息设置</a>
+                            </li>
+                            <li class="">
+                                <a href="{:U('Config/group',array('group'=>3))}">网站开关</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="form-group"></div>
+                    <div class="builder-container" >
+                        <div class="row" >
+                            <div class="col-xs-12" >
+                                <form action="{:U('Config/system')}" method="post" class="form-horizontal form form-builder">
+                                <div class="form-type-list">
+
+                                   <div class="form-group item_config[WEB_SITE_TITLE] ">
+                                        <label class="left control-label">注册总人数：</label>
+                                        <div style="width:200px" class="input-group">
+                                            <input type="text" name="m_reg_count" class="form-control" value="{$info.m_reg_count}" >
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group item_config[WEB_SITE_TITLE] ">
+                                        <label class="left control-label">在线总人数：</label>
+                                        <div style="width:200px" class="input-group">
+                                            <input type="text" name="m_one_count" class="form-control" value="{$info.m_one_count}" >
+                                        </div>
+                                    </div>
+
+                                     <div class="form-group item_config[WEB_SITE_TITLE] ">
+                                        <label class="left control-label">每次排单所需排单币：</label>
+                                        <div style="width:200px" class="input-group">
+                                            <input type="text" name="m_p_count" class="form-control" value="{$info.m_p_count}" >
+                                            <span class="input-group-addon">‰</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group item_config[WEB_SITE_TITLE] ">
+                                        <label class="left control-label">每天成功排单数：</label>
+                                        <div style="width:200px" class="input-group">
+                                            <input type="text" name="m_ok_p_count" class="form-control" value="{$info.m_ok_p_count}" >
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group item_config[WEB_SITE_TITLE] ">
+                                        <label class="left control-label">每天排单时间：</label>
+                                        <div style="width:200px" class="input-group">
+                                            <input type="text" name="m_w_time" class="form-control" value="{$info.m_w_time}" >
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group item_config[WEB_SITE_TITLE] ">
+                                        <label class="left control-label">排单金额：</label>
+                                        <div style="width:600px;" class="input-group">
+                                            <input type="text" name="m_pin_money" class="form-control" value="{$info.m_pin_money}" >
+                                            <span class="input-group-addon" >用英文","号隔开</span>
+                                        </div>
+                                    </div>
+                                     <div class="form-group item_config[WEB_SITE_TITLE] ">
+                                        <label class="left control-label">排单金额数量：</label>
+                                        <div style="width:600px;" class="input-group">
+                                            <input type="text" name="m_pin_money_num" class="form-control" value="{$info.m_pin_money_num}" >
+                                            <span class="input-group-addon" >用英文","号隔开</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group item_config[WEB_SITE_TITLE] ">
+                                        <label class="left control-label">本金冻结时间：</label>
+                                        <div style="width:200px" class="input-group">
+                                            <input type="text" name="m_bj_time" class="form-control" value="{$info.m_bj_time}" >
+                                            <span class="input-group-addon" >0不冻结(小时)</span>
+                                        </div>
+                                    </div>
+
+                                <div class="form-group"></div>
+                                <div class="form-group bottom_button_list">
+                                    <a class="btn btn-primary submit ajax-post" type="submit" target-form="form-builder">确定</a>
+                                    <a class="btn btn-danger return" onclick="javascript:history.back(-1);return false;">取消</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>                   
+</div>
+</block>
+
+<block name="script">
+    <script type="text/javascript" src="__LYUI__/js/lyui.extend.min.js"></script>
+</block>

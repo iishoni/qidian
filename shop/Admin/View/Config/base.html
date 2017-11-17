@@ -1,0 +1,142 @@
+<extend name="Public/layout"/>
+<block name="style" >
+    <link rel="stylesheet" type="text/css" href="__LYUI__/css/lyui.extend.min.css">
+    <link rel="stylesheet" type="text/css" href="__ADMIN_CSS__/style.css">
+</block>
+
+<block name="main">
+   <div id="main" class="col-xs-12 col-sm-9 main" style="overflow-y: scroll;">
+        <!-- 面包屑导航 -->
+        <ul class="breadcrumb">
+            <li><i class="fa fa-map-marker"></i></li>
+            <foreach name="_menu_tab['name']" item="tab_v" >
+            <li class="text-muted">{$tab_v}</li>
+            </foreach>
+            <li class="text-muted">基本</li>
+        </ul>
+
+        <!-- 主体内容区域 -->
+        <div class="tab-content ct-tab-content">
+            <div class="panel-body">
+                <div class="builder formbuilder-box">
+                    <div class="builder-tabs builder-form-tabs">
+                        <ul class="nav nav-tabs">
+                             <li class="active">
+                                <a href="{:U('Config/group',array('group'=>1))}">基本</a>
+                            </li>
+                            <li >
+                                <a href="{:U('Config/system')}">奖金设置</a>
+                            </li>
+                            <li class="">
+                                <a href="{:U('Config/fee')}">提现设置</a>
+                            </li>
+                            <li class="">
+                                <a href="{:U('Config/turntable')}">利息设置</a>
+                            </li>
+                            <li class="">
+                                <a href="{:U('Config/group',array('group'=>3))}">网站开关</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="form-group"></div>
+                    <div class="builder-container" >
+                        <div class="row" >
+                            <div class="col-xs-12" >
+                                <form action="{:U('Config/groupSave')}" method="post" class="form-horizontal form form-builder">
+                                <div class="form-type-list">
+
+                                    <div class="form-group">
+                                        <label class="left control-label">网站标题：</label>
+                                        <div class="right">
+                                            <input type="text" class="form-control input text" name="WEB_SITE_TITLE" value="{$info.WEB_SITE_TITLE}" placeholder="网站标题前台显示标题">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group ">
+                                        <label class="left control-label">网站LOGO：</label>
+                                        <div class="right row">
+                                            <div id="_upload_box_4" class="wu-example">
+                                                <!--用来存放文件信息-->
+                                                <div id="_upload_list_4" class="uploader-list col-xs-12 img-box">
+                                                    <notempty name="info['WEB_SITE_LOGO']" >
+                                                    <div id="_upload_preview_4" class="col-sm-3 file-item thumbnail">
+                                                        <i class="fa fa-times-circle remove-picture"></i>
+                                                        <img src="{$info.WEB_SITE_LOGO|get_cover}" data-id="{$info.WEB_SITE_LOGO}">
+                                                    </div>                
+                                                        <else />
+                                                    <div id="_upload_preview_4" class="col-sm-3 file-item thumbnail hidden">
+                                                        <i class="fa fa-times-circle remove-picture"></i>
+                                                        <img>
+                                                    </div>  
+                                                    </notempty>
+                                                </div>
+
+                                                <div class="btns col-xs-12">
+                                                    <input type="hidden" id="_upload_input_4" name="WEB_SITE_LOGO" value="{$info.WEB_SITE_LOGO}">
+                                                    <div id="_upload_4" class="btn btn-primary webuploader-container"><div class="webuploader-pick">上传图片</div><div id="rt_rt_1bjl30amv1u0m1tsr1jsu1iv94hl1" style="position: absolute; top: 6px; left: 12px; width: 56px; height: 20px; overflow: hidden; bottom: auto; right: auto;"><input type="file" name="file" class="webuploader-element-invisible" multiple="multiple" accept="image/gif,image/jpg,image/jpeg,image/bmp,image/png"><label style="opacity: 0; width: 100%; height: 100%; display: block; cursor: pointer; background: rgb(255, 255, 255);"></label></div></div>
+                                                    <button id="ctlBtn" class="btn btn-default hidden">开始上传</button>
+                                                    <span class="check-tips text-muted small">网站LOGO</span>
+                                                </div>
+                                            </div>
+
+                                             <script type="text/javascript" src="__ADMIN_JS__/upload.js" ></script>
+                                                <script type="text/javascript">
+                                                    $(function(){
+                                                        var url='{:U("Upload/upload", array("dir" => "image"))}';
+                                                        uploadimg(url);
+                                                    })
+                                                </script>
+                                        </div>
+                                    </div>
+
+                                <div class="form-group">
+                                    <label class="left control-label">网站描述：</label>
+                                    <div class="right">
+                                        <textarea class="form-control textarea" rows="5" name="WEB_SITE_DESCRIPTION">{$info.WEB_SITE_DESCRIPTION}</textarea>
+                                        <span class="check-tips text-muted small">网站搜索引擎描述</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group ">
+                                    <label class="left control-label">网站关键字：</label>
+                                    <div class="right">
+                                        <textarea class="form-control textarea" rows="5" name="WEB_SITE_KEYWORD">{$info.WEB_SITE_KEYWORD}</textarea>
+                                        <span class="check-tips text-muted small">网站搜索引擎关键字</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group ">
+                                    <label class="left control-label">版权信息：</label>
+                                    <div class="right">
+                                        <input type="text" class="form-control input text" name="WEB_SITE_COPYRIGHT" value="{$info.WEB_SITE_COPYRIGHT}" placeholder="设置在网站底部显示的版权信息">
+                                    </div>
+                                </div>
+
+                                <div class="form-group ">
+                                    <label class="left control-label">网站备案号：</label>
+                                    <div class="right">
+                                        <input type="text" class="form-control input text" name="WEB_SITE_ICP" value="{$info.WEB_SITE_ICP}" placeholder="设置在网站底部显示的备案号">
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group"></div>
+                                <div class="form-group bottom_button_list">
+                                    <a class="btn btn-primary submit ajax-post" type="submit" target-form="form-builder">确定</a>
+                                    <a class="btn btn-danger return" onclick="javascript:history.back(-1);return false;">取消</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>                   
+</div>
+</block>
+
+<block name="script">
+    <script type="text/javascript" src="__LYUI__/js/lyui.extend.min.js"></script>
+</block>

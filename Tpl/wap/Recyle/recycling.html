@@ -1,0 +1,85 @@
+<include file="Common/head"/>
+<body> 
+<div class="recycling">
+    <form name="f1" action="{:U('Recyle/save')}" >
+    <p style="font-size: 5vmin;color:#fcc504;line-height: 11vmin;    text-shadow: 0px 1px 1px #cccccc;">本周回收次数：<span id="retime" style="color:#ff0000;">{$count}</span>次</p>
+    <ul>
+        <li>矿石数<span><input type="text" name="num" class="txt" placeholder="输入整数"></span></li>
+        <li>手续费<span id="fee" >{$fee}</span>%</li>
+        <li>合&nbsp;&nbsp;计&nbsp;&nbsp;<span id="total" >0</span></li>
+    </ul>
+    <p class="payway" >
+        <a><img src="__IMG__/zfb.png" alt="" style="width: 18%;"></a>
+        <a style="margin-left: 20%;" ><img src="__IMG__/wx.png" alt="" style="width: 18%;"></a>
+        <input type="hidden" name="way" value="0" >
+    </p>
+    <p><input name="no" type="text" placeholder="支付宝账号" class="inputtext txt"></p>
+    <p><input name="name" type="text" placeholder="收款人" class="inputtext txt"></p>
+    <p style="margin-top:5%;"><a href="javascript:savedata()" class="buyan">回收</a></p>
+    <p style="margin-top:5%;color:red;font-size: 4vmin;">提示：矿石回收时间：每周六9:00-凌晨2:00</p>
+    </form>
+</div>
+
+<!-- 数据提交js -->
+<script type="text/javascript" src="__JS__/ajax.js" ></script>
+<script type="text/javascript">
+
+    $("input[name='num']").keyup(function(){
+        var num_old=$(this).val();
+        if(num_old!='')
+            var num=parseInt(num_old);
+        var fee=Number($("#fee").text());
+        var total=num*fee/100;
+        total=total+num;
+        total=Math.round(total*100)/100;//保留两位小数
+        if(num_old=='' || num_old==null)
+            total='0';
+        $('#total').text(total);
+    });
+
+    $('.payway a').click(function(){
+        var index=$(this).index();
+        $('.payway input').val(index);
+        if(index==1){
+            $("input[name='no']").attr('placeholder','微信账号');
+        }else{
+            $("input[name='no']").attr('placeholder','支付宝账号');
+        }
+    });
+
+    //表单提交
+    function savedata(){
+        if($('#retime').text()=='1'){
+          useralert('本周已回,每周只能回收一次哦'); 
+          return false; 
+        }
+       var post_url = $("form[name=f1]").attr('action');
+       var post_data= $("form[name=f1]").serialize();
+       $.ajax({
+           type: "POST",
+           url: post_url,
+           data:post_data,
+           dataType: "json",
+           success: function(data){
+              if(data.status==1){
+                editdata();//修改仓库数据
+                $('.buyan').text(data.message);
+                $('.txt').val('');
+                $('#total').text('0');
+                $('#retime').text('1');
+              }else{
+                  useralert(data.message);
+              }      
+            }     
+    });
+   }
+
+</script>
+
+</body> 
+</html>
+
+
+
+
+

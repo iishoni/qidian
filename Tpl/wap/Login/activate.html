@@ -1,0 +1,67 @@
+<include file="Common/header" />
+<body>
+<div class="header">
+    <div class="header_l">
+      <a href="javascript:history.back()"><img src="__IMG__/lpg.png" alt=""></a>
+   
+    </div>
+    <div class="header_c"><h1>激活会员</h1></div>
+    <div class="header_r"></div>
+</div>
+	<form class="myform" >
+        <div class="reggis">
+            <ul>
+                <li><i class="iconfont">&#xe615;</i> <input id="mobile" name="mobile" type="text" maxlength="11" class="inputbb" readonly="true" value="{$mobile}" placeholder="激活账号"></li>
+                <li><i class="iconfont">&#xe6b2;</i> <input type="text" class="inputbb"  maxlength="6" name="activate_code" readonly="true" placeholder="拥有激活码数量" value="{$code}" style="width: 50%;"> 
+        	        <span>
+        	        	<a href="javascript:" onclick="get_activate_code()">读取激活码</a>
+        	        </span>
+                </li>
+            </ul>
+        </div>
+    </form>
+<div style="height: 5vmin;"></div>
+<div class="submit"><a id="register" href="javascript:">立即激活</a></div>
+<div style="height: 8vmin;"></div>
+</body>
+</html>
+<script>
+    $(function(){
+        
+        $('#register').click(function(){
+        	//校验数据
+			var activate_code=$("input[name='activate_code']").val();
+			if(activate_code=='' || activate_code==null){
+				$("input[name='activate_code']").focus();
+				return false;
+			}
+
+            $.post('{:U("ActivateUser")}',$('.myform').serialize(),function(data){
+
+                if(data.status==1){
+                     msg_alert(data.message,data.url);
+                }else{
+                     msg_alert(data.message);
+                }
+                
+            },'json')
+            
+        })
+    });
+
+    //读取激活码
+    function get_activate_code(){
+        var mobile=$("#mobile").val();
+         $.post('{:U("ActivateCode")}',{'mobile':mobile},function(data){
+              
+                if(data.status==1){
+                    $("input[name='activate_code']").val(data.message+"个");
+                }else{
+                    msg_alert(data.message);
+                }
+                
+            },'json')
+    }
+
+
+    </script>

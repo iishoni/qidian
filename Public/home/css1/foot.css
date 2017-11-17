@@ -1,0 +1,109 @@
+html,body {margin:0;padding:0;}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td {margin:0;padding:0;}
+table {border-collapse:collapse;border-spacing:0;}
+fieldset,img {border:0;}
+address,caption,cite,code,dfn,th,var {font-style:normal;font-weight:normal;}
+ol,ul {list-style:none outside none;margin:0;padding:0;}
+/*::-webkit-input-placeholder { color:#369; }*/
+input{outline: none;}
+caption,th {text-align:left;}
+h1,h2,h3,h4,h5,h6 {font-size:100%;font-weight:normal;}
+a {color:#362e2b;text-decoration:none;cursor:pointer;}
+em,i,b{font-style: normal;font-weight: normal;}
+.clearfix:after{content: ".";display: block;  clear: both;visibility: hidden;line-height: 0;height: 0;font-size:0;}
+.right{ float:right}
+.clearfix{ clear:both}
+.left{ float:left}
+
+footer {
+    display: -webkit-box;
+    background: #ffffff;
+    width: 100%;
+    height: 14vmin;
+    position: fixed;
+    bottom: 0;
+    font-size: 3.5vmin;
+    border-top: 1px solid #dcdcdc;
+    background-color: #f8f8f8;
+}
+/*
+footer a.active:nth-child(1) {
+    background-image: url(../images/f1.png);
+}
+footer a:nth-child(1) {
+    
+    background-image: url(../images/f01.png);
+}
+
+footer a:nth-child(2) {
+    background-image: url(../images/f2.png);
+}
+footer a.active:nth-child(3) {
+    background-image: url(../images/f03.png);
+}
+footer a:nth-child(3) {
+    
+    background-image: url(../images/f3.png);
+}
+footer a.active:nth-child(4) {
+    background-image: url(../images/f04.png);
+}
+footer a:nth-child(4) {
+    
+    background-image: url(../images/f4.png);
+}
+footer a.active:nth-child(5) {
+    background-image: url(../images/f05.png);
+}
+footer a:nth-child(5) {
+    
+    background-image: url(../images/f5.png);
+}
+*/
+footer a.active {
+    background-color: #f8f8f8;
+    color: #e93325;
+}
+footer a.activeli {
+    background-color: #f8f8f8;
+    color: #e93325;
+}
+footer a {
+    display: block;
+    font-size: 3.8vmin;
+    width: 25%;
+    height: 13vmin;
+    padding-top: 0px;
+    text-align: center;
+    background: no-repeat center 6px;
+    background-size: 21px;
+    color:#787878;
+}
+footer a i{
+    font-size: 7vmin;
+}
+#linno{border:none;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

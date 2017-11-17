@@ -1,0 +1,112 @@
+﻿<include file="Common/header" />
+<style type="text/css">
+   .list tr:nth-child(even)
+    {
+        text-align: center;
+        line-height: 14vmin;
+        color: #626262;
+        background: #f5f5f5;
+    }
+    .gery{
+        color:#626262;
+    }
+</style>
+<body>
+<div class="header">
+    <div class="header_l">
+      <a href="javascript:history.back();"><img src="__IMG__/lpg.png" alt=""></a>
+   
+    </div>
+    <div class="header_c"> <h1>会员预警</h1></div>
+    <div class="header_r"></div>
+</div>
+
+<div class="level">
+        <div class="level_table">
+            <table style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th style="width: 14%;">类型</th>
+                        <th style="width: 16%;">姓名</th>
+                        <th>电话</th>
+                        <th>状态</th>
+                        <th>排单时间</th>
+                    </tr>
+                </thead>
+                <?php 
+                        $tb=M('orderbuy');
+                 ?>
+                <tbody class="list" >
+                    <foreach name="info" key="k" item="v" >
+                    <?php 
+                        $level=$v['deep']-$deep;
+                     ?>
+                    <tr>
+                        <td>{$level}级</td>
+                        <td>{$v.username}</td>
+                        <td>{$v.mobile}</td>
+                        <td class="red" >{$v['status']==0 ? '冻结':$status[$v['activate']]}</td>
+                        <td class="red">
+                        <?php 
+                            $time=$tb->where(array('uid'=>$v['userid']))->order('id desc')->getField('datetime');
+                            if($time)
+                                echo date('Y-m-d H:i',$time);
+                            else
+                                echo "-";
+                         ?>
+                        </td>
+                    </tr>
+                    </foreach>
+                </tbody>
+            </table>
+            <if condition="$k gt 8" >
+            <div id="more" style="text-align:center" data-status="1">  
+                    加载更多  
+            </div>  
+            <input type="hidden" id="page" value="1"> 
+            </if>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+             //加载
+            $(function () {  
+               $("#more").click(function () {  
+                   var page = parseInt($("#page").val());  
+                   
+                   var oldthis=$(this);
+                   status=$(this).attr("data-status");  
+                   if(status==1) {  
+                       $(this).html("加载中...");  
+                       status = $(this).attr("data-status", "0");  
+                       $.ajax({  
+                           type: "get",  
+                           url: "{:U('UserCenter/getUserWarn')}",  
+                           data: "p=" + page,  
+                           dataType: "json",  
+                           success: function (data) {  
+                              
+                            /*判断有没有数据*/
+                            if (data){
+                                $("#page").val(page + 1);  
+                                insertDiv(data);  
+                             } else {  
+                                 $(oldthis).html("已经没有了");
+                             }  
+                           }  
+                       });  
+                   }  
+          
+               });  
+           });  
+               function insertDiv(data){  
+                 
+                   var table = $(".list");  
+                   table.append(data);  
+                   $("#more").html("加载更多");  
+                   $("#more").attr("data-status","1");  
+               } 
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,252 @@
+
+<!-- 弹窗 个人资料 S -->
+<div id="light1" class="white_content">
+    <a href = "javascript:void(0)" class="shutdown close"></a>
+    <div class="white_content_avatar">
+        <p><img src="{$u_info.head_img}" alt=""></p>
+        <p><a href="javascript:updateimg()">更改头像</a></p>
+        <form action="{:U('Index/uplodeimg')}" id="uplodeimg" method="post" enctype="multipart/form-data" >
+            <input style="display:none" id='file' type="file" name="headimg" >
+        </form>
+        
+
+        
+        <ul>
+            <li>账号<span>{$u_info.account}</span></li>
+            <li>姓名<span>{$u_info.username}</span></li>
+            <li>推荐人<span>{$u_info.p_account|default='无'}</span></li>
+        </ul>
+    </div>
+
+    <div class="white_content_avatar_bb">
+        <ul style="margin-top:0;">
+            <li>一级密码<span>**********</span></li>
+            <li>二级密码<span>**********</span></li>
+        </ul>
+        <p><a href="javascript:" onclick="showbox('light2')" >修改</a></p>
+    </div>
+ </div> 
+<!-- 弹窗 个人资料 E -->
+
+
+
+<!-- 弹窗 修改密码 S -->
+<div id="light2" class="white_content">
+    <a href = "javascript:void(0)" class="shutdown close"></a>
+    <form id="updatepwd" action="{:U('Index/UpdatePassword')}" >
+    <div class="changepassword" style="margin-top:17%;">
+        <h3>一级密码：</h3>
+        <ul>
+            <li><input name="old_pwd" type="password" placeholder="原始密码"></li>
+            <li><input name="new_pwd" type="password" placeholder="新密码"></li>
+            <li><input name="rep_pwd" type="password" placeholder="确认新密码"></li>
+        </ul>
+    </div>
+    <div class="changepassword">
+        <h3>二级密码：</h3>
+        <ul>
+            <li><input name="old_pwdt" type="password" placeholder="原始密码"></li>
+            <li><input name="new_pwdt" type="password" placeholder="新密码"></li>
+            <li><input name="rep_pwdt" type="password" placeholder="确认新密码"></li>
+        </ul>
+        <p><a href="javascript:updatepwd()" >确认修改</a></p>
+        <p><a href="" class="cancel">取消修改</a></p>
+    </div>
+    </form>
+ </div> 
+
+<!-- 弹窗 修改密码 E -->
+
+
+
+<!-- 弹窗 购买 S -->
+<div id="light3" class="white_content buybox">
+    <a href = "javascript:void(0)" class="shutdown close"></a>
+    <div class="bulletbox">
+      <iframe name="light3" src="" style="border: none;width: 100%;height: 95vmin;">
+      </iframe>
+    </div>
+</div>    
+<!-- 弹窗 购买 E -->
+
+<!-- 弹窗 公告 S -->
+ <div id="light4" {$isnew.show} class="white_content">
+    <a href = "javascript:void(0)" class="shutdown close"></a>
+    <div class="announcementss">
+      <iframe src="{$isnew.url}" style="border: none;width: 100%;height: 100%;"></iframe>
+    </div>
+</div>    
+<!-- 弹窗 公告 E -->
+
+
+<!-- 弹窗 交易中心 S -->
+ <div id="light5" class="white_content transa">
+    <p><input type="password" placeholder="请输入二级密码"></p>
+    <a href = "javascript:void(0)" class="close qunx">取 消</a>
+    <a href="javascript:" onclick="checkpassword()">确 认</a>
+    <!-- <a href="javascript:" onclick="showbox('light6','{:U('Traing/TraingSell')}')">确 认</a> -->
+</div>    
+<!-- 弹窗 交易中心 E -->
+
+<!-- 弹窗 交易中心 出 售 S -->
+ <div id="light6" class="white_content">
+    <a href = "javascript:void(0)" class="shutdown close"></a>
+    <div class="announcementss">
+      <iframe src="" style="border: none;width: 100%;height: 100%;"></iframe>
+    </div>
+</div>    
+<!-- 弹窗 交易中心 出 售 E -->
+
+
+<!-- 弹窗 交易记录 S -->
+<div id="light12" class="white_content">
+    <a href = "javascript:void(0)" class="shutdown close"></a>
+    <div class="announcementss">
+      <iframe src="" style="border: none;width: 100%;height: 100%;"></iframe>
+    </div>
+</div>    
+<!-- 弹窗 交易记录 E -->
+
+
+
+
+<!-- 弹窗 好友列表 S -->
+ <div id="light13" class="white_content">
+    <a href = "javascript:void(0)" class="shutdown close"></a>
+    <div class="announcementss">
+      <iframe  src="" style="border: none;width: 100%;height:100%;"></iframe>
+    </div>
+</div>    
+<!-- 弹窗 好友列表 E -->
+
+
+<!-- 弹窗 成长记录 S -->
+<div id="light14" class="white_content">
+    <a href = "javascript:void(0)" class="shutdown close"></a>
+    <div class="announcementss">
+      <iframe src="" style="border: none;width: 100%;height:100%;"></iframe>
+    </div>
+</div>    
+<!-- 弹窗 成长记录 E -->
+
+
+
+<!-- 弹窗 添加好友 S -->
+ <div id="light15" class="white_content buybox">
+    <a href = "javascript:void(0)" class="shutdown close"></a>
+    <div class="bulletbox">
+      <iframe name="frm" src="" style="border: none;width: 100%;height:100%;"></iframe>
+    </div>
+</div>    
+<!-- 弹窗 好友 E -->
+
+
+<!-- 弹窗 游戏大厅 S -->
+ <div id="light16" class="white_content transabb">
+    <img src="__IMG__/gb.png" class="close closevv" alt="">
+    <p>该功能暂未开放，敬请期待！</p>
+</div>    
+<!-- 弹窗 游戏大厅 E -->
+
+<!-- 弹窗 回收 S -->
+ <div id="light17" class="white_content">
+    <a href = "javascript:void(0)" class="shutdown close"></a>
+    <div class="bulletbox" style="height: 85%;">
+      <iframe src="" style="border: none;width: 100%;height:88%;"></iframe>
+    </div>
+</div>    
+<!-- 弹窗 回收 E -->
+
+<!-- 弹窗 采矿 S -->
+ <div id="light18" class="white_content transabb">
+    <p>今日已采矿，明日继续哦~</p>
+    <!-- <a href = "javascript:void(0)" class="close"><img src="__IMG__/gb.png" alt=""></a> -->
+</div>    
+<!-- 弹窗 采矿 E -->
+
+
+<!-- 弹窗 升级 S -->
+ <div id="light19" class="white_content upgrade">
+   <!--  <a href = "javascript:void(0)" class="shutdown close"></a> -->
+    <div class="upgrade_sc">
+      <iframe src="" style="border: none;width: 100%;height: 123vmin;position: absolute;bottom: 1%;"></iframe>
+    </div>
+</div> 
+<!-- 弹窗 升级 E -->
+
+
+<!-- 弹窗 游戏大厅 S -->
+ <div id="light20" class="white_content transabb">
+    <img src="__IMG__/gb.png" class="close closevv" alt="">
+    <p>该功能暂未开放，敬请期待！</p>
+</div>    
+<!-- 弹窗 游戏大厅 E -->
+
+<!-- 弹窗 游戏大厅 S -->
+ <div {$allsign} class="white_content transabb">
+    <img src="__IMG__/gb.png" class="close closevv" alt="">
+    <p style="line-height: 10vmin;" >真勤奋，上周连续采矿7天，特奖励您0.5%拆分率，下周继续加油！</p>
+</div>    
+<!-- 弹窗 游戏大厅 E -->
+
+
+<!-- 弹窗 转盘 S -->
+ <div id="light21" class="white_content">
+    <a href = "javascript:void(0)" class="shutdown close"></a>
+    <div class="bulletbox">
+      <iframe src="" style="border: none;width: 100%;height: 100%;overflow: auto;"></iframe>
+    </div>
+</div>    
+<!-- 弹窗 转盘 E -->
+
+<?php 
+    $on_off=cookie('msg');
+?>
+<!-- 弹窗 设置 S -->
+ <div id="light22" class="white_content transabb">
+    <img src="__IMG__/gb.png" class="close closevv" alt="">
+    <p style="line-height: 20vmin;">
+        <img src="__IMG__/music.png" alt="" style="vertical-align: middle;margin-right: 10%;width: 15%;">
+      <span class="btn" >
+        <input type="checkbox" <neq name="on_off" value="off" >checked="true"</neq> name="check-1" value="4" class="lcs_check" autocomplete="off" />
+      </span>
+        
+        <script type="text/javascript">
+           $(document).ready(function(e) {
+                $('input').lc_switch();
+                // triggered each time a field changes status
+                $('.btn').delegate('.lcs_check', 'lcs-statuschange', function() {
+                    var status = ($(this).is(':checked')) ? 'checked' : 'unchecked';
+                    var audioEle = document.getElementById("player");
+                    if (status=='checked') {
+                        audioEle.play(); //播放
+                        $(this).removeClass('off');
+                        var msg='on';
+                        postdata(msg);
+                    } else {
+                        audioEle.pause(); //暂停   
+                        $(this).addClass('off');
+                        var msg='off';
+                        postdata(msg);
+                    }
+                    console.log('field changed status: '+ status );
+                });
+
+            });
+            </script> 
+
+      </p>
+    <a href="{:U('Login/logout')}" class="music">退出账户</a>
+</div>
+
+<!-- 弹窗 设置 E -->
+
+
+<!---背景声音-->
+    
+   <audio id="player" <neq name="on_off" value="off" >autoplay='autoplay'</neq> loop="loop" preload="auto">
+        <source src="__PUBLIC__/music/hdsj.mp3" type="audio/mpeg">
+   </audio>
+
+<!-- 数据提交js -->
+<script type="text/javascript" src="__JS__/ajax.js" ></script>
