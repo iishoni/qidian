@@ -122,7 +122,6 @@ class OrderReceiptModel extends ModelModel{
             }
 
             if($params['money'] > get_tx($wealth_num['wealth_num'])){
-
                 $this->error="最大金额只能提".get_tx($wealth_num['wealth_num']);
                 return false;
             }
@@ -483,7 +482,11 @@ class OrderReceiptModel extends ModelModel{
                 //烧伤订单
                 $fireOrder = M("order")->where(array("status"=>"2","a_uid"=>$tj_id))->order("play_datetime desc")->find();
                 if($fireOrder){
-                    $price = $fireOrder["money"];
+                    if($pay_info["money"]<$fireOrder["money"]){
+                        $price = $pay_info["money"];
+                    }else{
+                        $price = $fireOrder["money"];
+                    }
                 }else{
                     $price = 0;
                     continue;
