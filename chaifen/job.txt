@@ -1,0 +1,2 @@
+crontab -e
+*/15 * * * * /usr/bin/php -f /var/www/html/chaifen/weekwork.php
