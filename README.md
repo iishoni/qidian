@@ -1,6 +1,7 @@
 # qidian
 一个php项目
-1
+
+
 os:centos7.3
 
 -1. 安装apache、mysql
