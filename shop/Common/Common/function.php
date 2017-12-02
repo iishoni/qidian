@@ -116,9 +116,9 @@ function getpage(&$m,$where,$pagesize=10){
     //手机端访问
     if(is_wap()){
        $p->rollPage        = 3;
-       $p->setConfig('theme','%UP_PAGE%%LINK_PAGE%%DOWN_PAGE%'); 
+       $p->setConfig('theme','%UP_PAGE%%LINK_PAGE%%DOWN_PAGE%');
     }
-    
+
     $p->parameter=I('get.');
 
     $m->limit($p->firstRow,$p->listRows);
@@ -133,9 +133,9 @@ function getpage(&$m,$where,$pagesize=10){
 function get_verify(){
     ob_clean();
     $config =    array(
-    'codeSet' =>  '0123456789',   
-    'fontSize'    =>    50,    // 验证码字体大小   
-    'length'      =>    4,     // 验证码位数    
+    'codeSet' =>  '0123456789',
+    'fontSize'    =>    50,    // 验证码字体大小
+    'length'      =>    4,     // 验证码位数
     'fontttf'     =>   '5.ttf',
     'useCurve'    => false,
     'bg'          => array(229, 237, 240),
@@ -162,7 +162,7 @@ function ajaxReturn($message,$status=0, $url ='',$extra='') {
         'url' => $url,
         'result'  =>  $extra
     );
-    
+
     exit(json_encode($result));
 }
 
@@ -175,7 +175,7 @@ function success_alert($mes,$url=''){
     if($url!=''){
         echo "<meta charset=\"utf-8\"/><script>alert('".$mes."');location.href='" .$url. "';</script>";
     }else{
-       echo "<meta charset=\"utf-8\"/><script>alert('".$mes."');location.href='" .$jumpUrl. "';</script>"; 
+       echo "<meta charset=\"utf-8\"/><script>alert('".$mes."');location.href='" .$jumpUrl. "';</script>";
     }
     exit;
 }
@@ -187,7 +187,7 @@ function success_alert($mes,$url=''){
 //字符过滤
 //陶
 function safe_replace($string) {
-    if(is_array($string)){ 
+    if(is_array($string)){
        $string=implode('，',$string);
        $string=htmlspecialchars(str_shuffle($string));
     } else{
@@ -373,30 +373,30 @@ function mobile_hide($mobile)
 {
     $mobile_asterisk = substr($mobile,0,3)."****".substr($mobile,7,4);
     return $mobile_asterisk;
-} 
+}
 
 
 
 function pay_type($type)
 {
   switch($type){
-    
+
     case 1:
       $type='认筹股金';
-    break;    
-    
+    break;
+
     case 2:
       $type='股金收益';
-    break;    
-    
+    break;
+
     case 3:
       $type='业绩红利';
-    break;    
-  
-    
-    
+    break;
+
+
+
   }
-  
+
   return $type;
 }
 
@@ -431,84 +431,93 @@ function think_encrypt($data, $key = '', $expire = 0) {
     }
     return str_replace(array('+','/','='),array('-','_',''),base64_encode($str));
 }
- 
+
 
 
  //在线人数
 function get_online_num(){
-    
-    $filename='data/online.txt';//数据文件 
-    $cookiename='VGOTCN_OnLineCount';//cookie名称 
-    $onlinetime=600;//在线有效时间，单位：秒 (即600等于10分钟) 
-      
-    $online=file($filename); 
+
+    $filename='data/online.txt';//数据文件
+    $cookiename='VGOTCN_OnLineCount';//cookie名称
+    $onlinetime=600;//在线有效时间，单位：秒 (即600等于10分钟)
+
+    $online=file($filename);
     //PHP file() 函数把整个文件读入一个数组中。与 file_get_contents() 类似，不同的是 file() 将文件作为一个数组返回。数组中的每个单元都是文件中相应的一行，包括换行符在内。如果失败，则返回 false 
-    $nowtime=$_SERVER['REQUEST_TIME']; 
-    $nowonline=array(); 
+    $nowtime=$_SERVER['REQUEST_TIME'];
+    $nowonline=array();
     //得到仍然有效的数据 
-    foreach($online as $line){ 
-      $row=explode('|',$line); 
-      $sesstime=trim($row[1]); 
-      if(($nowtime - $sesstime)<=$onlinetime){//如果仍在有效时间内，则数据继续保存，否则被放弃不再统计 
-        $nowonline[$row[0]]=$sesstime;//获取在线列表到数组，会话ID为键名，最后通信时间为键值 
-      } 
-    } 
+    foreach($online as $line){
+      $row=explode('|',$line);
+      $sesstime=trim($row[1]);
+      if(($nowtime - $sesstime)<=$onlinetime){//如果仍在有效时间内，则数据继续保存，否则被放弃不再统计
+        $nowonline[$row[0]]=$sesstime;//获取在线列表到数组，会话ID为键名，最后通信时间为键值
+      }
+    }
     /* 
     @创建访问者通信状态 
     使用cookie通信 
     COOKIE 将在关闭浏览器时失效，但如果不关闭浏览器，此 COOKIE 将一直有效，直到程序设置的在线时间超时 
     */
-    if(isset($_COOKIE[$cookiename])){//如果有COOKIE即并非初次访问则不添加人数并更新通信时间 
-      $uid=$_COOKIE[$cookiename]; 
-    }else{//如果没有COOKIE即是初次访问 
-      $vid=0;//初始化访问者ID 
-      do{//给用户一个新ID 
-        $vid++; 
-        $uid='U'.$vid; 
-      }while(array_key_exists($uid,$nowonline)); 
-      setcookie($cookiename,$uid); 
-    } 
-    $nowonline[$uid]=$nowtime;//更新现在的时间状态 
+    if(isset($_COOKIE[$cookiename])){//如果有COOKIE即并非初次访问则不添加人数并更新通信时间
+      $uid=$_COOKIE[$cookiename];
+    }else{//如果没有COOKIE即是初次访问
+      $vid=0;//初始化访问者ID
+      do{//给用户一个新ID
+        $vid++;
+        $uid='U'.$vid;
+      }while(array_key_exists($uid,$nowonline));
+      setcookie($cookiename,$uid);
+    }
+    $nowonline[$uid]=$nowtime;//更新现在的时间状态
     //统计现在在线人数 
-    $total_online=count($nowonline); 
+    $total_online=count($nowonline);
     //写入数据 
-    if($fp=@fopen($filename,'w')){ 
-      if(flock($fp,LOCK_EX)){ 
-        rewind($fp); 
-        foreach($nowonline as $fuid=>$ftime){ 
-          $fline=$fuid.'|'.$ftime."\n"; 
-          @fputs($fp,$fline); 
-        } 
-        flock($fp,LOCK_UN); 
-        fclose($fp); 
-      } 
-    }   
-    
+    if($fp=@fopen($filename,'w')){
+      if(flock($fp,LOCK_EX)){
+        rewind($fp);
+        foreach($nowonline as $fuid=>$ftime){
+          $fline=$fuid.'|'.$ftime."\n";
+          @fputs($fp,$fline);
+        }
+        flock($fp,LOCK_UN);
+        fclose($fp);
+      }
+    }
+
     return $total_online;
 }
 
 
-function setmyCode($mobile,$msg){
+function setmyCode($mobile,$msgType,$code){
 
-      $url="http://service.winic.org:8009/sys_port/gateway/index.asp?";
-      $data = "id=%s&pwd=%s&to=%s&content=%s&time=";
-      $id = 'yuzhu';
-      $pwd = '123456web';
-      $to = $mobile; 
-      $content = iconv("UTF-8","GB2312",$msg);
-      $rdata = sprintf($data, $id, $pwd, $to, $content);
-      
-      $ch = curl_init();
-      curl_setopt($ch, CURLOPT_POST,1);
-      curl_setopt($ch, CURLOPT_POSTFIELDS,$rdata);
-      curl_setopt($ch, CURLOPT_URL,$url);
-      curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
-      $result = curl_exec($ch);
-      curl_close($ch);
-      $result = substr($result,0,3);
-      if($result=='000')
+    $url="https://api.mysubmail.com/message/xsend";
+    $appid = '17855';
+    $project = '';
+    $signature = '4f16fb68782f9e44298ae047d3d9424e';
+
+    // 1-验证码
+    if($msgType=='1')
+        $project = 'ZBsSI3';
+    // 2-提供帮助
+    else if($msgType=='2')
+        $project = '7bRGv1';
+    // 3-给予帮助
+    else if($msgType=='3')
+        $project = 'CTPmZ';
+
+    $data = 'appid='.$appid.'&to='.$mobile.'&project='.$project.'&signature='.$signature.'&vars={"code":"'.$code.'"}';
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_POST,1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS,$data);
+    curl_setopt($ch, CURLOPT_URL,$url);
+    curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+    $result = curl_exec($ch);
+    curl_close($ch);
+    $result = substr($result,11,7);
+    if($result=='success')
         return true;
-      else
+    else
         return false;
 
 }

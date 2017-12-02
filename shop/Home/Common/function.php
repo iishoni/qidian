@@ -402,8 +402,8 @@ function sendMsg($mobile){
 
         //发送短信
         if(isMobile($user_mobile)){//国内短信发送接口
-            $content="您的验证码为：".$code.",5分钟内有效";//要发送的短信内容
-            $res=setmyCode($user_mobile,$content);
+//            $content="您的验证码为：".$code.",5分钟内有效";//要发送的短信内容
+            $res=setmyCode($user_mobile,'1',$code);
             if($res){
                 $mes['status']=1;
                 $mes['message']='短信发送成功';
@@ -416,7 +416,7 @@ function sendMsg($mobile){
             }
         }else{
             $mes['status']=0;
-            $mes['message']='手机号码不在正确';
+            $mes['message']='手机号码不正确';
             return $mes;
         }
 

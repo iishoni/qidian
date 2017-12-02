@@ -134,13 +134,13 @@ class OrderBuyModel extends ModelModel
 			$realname_arr[]=$receipt_info['username'];
 			if($receipt_info['account']){
 				
-				$js_info='尊敬的用户，您的请求已给予帮助，请及时登录系统查询。';
-				setmyCode($receipt_info['account'],$js_info);
+//				$js_info='尊敬的用户，您的请求已给予帮助，请及时登录系统查询。';
+				setmyCode($receipt_info['account'],'3', ' ');
 			}
 			
 			if($info['account']){
-				$tg_info='尊敬的用户，您提供的帮助已确认，请及时登录系统查询。';
-				setmyCode($info['account'],$tg_info);
+//				$tg_info='尊敬的用户，您提供的帮助已确认，请及时登录系统查询。';
+				setmyCode($info['account'],'2',' ');
 			}
 		}
 		

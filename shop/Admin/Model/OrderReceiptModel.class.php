@@ -83,14 +83,14 @@ class OrderReceiptModel extends ModelModel{
 			//短信
 			if($play_info['account']){
 				
-				$tg_info='尊敬的用户,您提供的帮助已确认，请及时登录系统查询。';
-				setmyCode($play_info['account'],$tg_info);
+//				$tg_info='尊敬的用户,您提供的帮助已确认，请及时登录系统查询。';
+				setmyCode($play_info['account'],'2',' ');
 			}		
 				
 			if($info['account']){
 				
-				$js_info='尊敬的用户，您的请求已给予帮助，请及时登录系统查询。';	
-				setmyCode($info['account'],$js_info);
+//				$js_info='尊敬的用户，您的请求已给予帮助，请及时登录系统查询。';
+				setmyCode($info['account'],'3',' ');
 			}
 			 
 		}
