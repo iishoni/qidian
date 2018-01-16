@@ -13,7 +13,7 @@ class PanicController extends CommonController {
         $this->assign('news_list',$info);
 
         $where['status']='0';
-        $orderbuy=M('orderbuy')->field('account,username,money')->where($where)->order('id desc')->limit(10)->select();
+        $orderbuy=M('orderbuy')->field('account,username,money')->where($where)->order('rand()')->limit(10)->select();
         $onests=time()-60;
         $time= date('Y/m/d H:i:s',$onests);
         $this->assign('send_time',$time);

@@ -96,6 +96,24 @@ class ConfigController extends AdminController
        
     }
 
+    public function onlineUp(){
+        // 生成随机增长数
+        $rand = mt_rand(10,50);
+        // 替换配置文件
+        $data=F('ststemconfig','','./Public/data/');
+        $data['m_one_count'] = $data['m_one_count'] + $rand;
+        F('ststemconfig',$data,'./Public/data/');
+    }
+
+    public function onlineDown(){
+        // 生成随机增长数
+        $rand = mt_rand(10,50);
+        // 替换配置文件
+        $data=F('ststemconfig','','./Public/data/');
+        $data['m_one_count'] = $data['m_one_count'] - $rand;
+        F('ststemconfig',$data,'./Public/data/');
+    }
+
     //提现设置
     public function fee(){
         if(IS_POST){

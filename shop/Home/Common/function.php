@@ -120,7 +120,7 @@ function img_uploading($path_old=null)
     }
 
     $upload             = new \Think\Upload();// 实例化上传类
-    $upload->maxSize    =     3145728 ;// 设置附件上传大小
+    $upload->maxSize    =     10485760 ;// 设置附件上传大小
     $upload->exts       =     array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
     $upload->rootPath   =      $images_path; // 设置上传根目录    // 上传文件
     $upload->savePath   =      ''; // 设置上传子目录    // 上传文件
