@@ -12,7 +12,7 @@
     
    修改内容如下：
 	
-	#ServerName localhost:80 -> ServerName localhost:80	（去掉注释）
+	#ServerName localhost:80 -> ServerName localhost:8080（去掉注释，改为8080端口）
 	AllowOverride None -> AllowOverride All （支持url重写）
 	<Directory "/var/www/html">
         // ...
@@ -27,6 +27,8 @@
 
 4.修改mysql配置
     
+    systemctl start mariadb
+    systemctl enable mariadb
     mysql_secure_installation
     mysql -uroot -pxxx
     create database hzxx1109_db
@@ -41,31 +43,40 @@
     yum -y install nginx
 
     // 注释掉自带配置文件的server节点下的所有配置
-    cd /etc/nginx/nginx.conf
+    vim /etc/nginx/nginx.conf
     
-    cd /etc/nginx/conf.d/
+   修改配置文件，内容如下：（需要生成ssl证书）
     
-   新增qidian配置文件，内容如下：（此处由于80端口被Apache占用，改用https的443端口，需要生成ssl证书）
-    	
+    server {
+        listen          80;
+        server_name     www.xxx.com;
+
+        rewrite  ^(.*)  https://$server_name$1 permanent;
+
+        #location ^~ /.well-known/acme-challenge/ {
+        #       alias /certs/;
+        #       try_files $uri =404;
+        #}
+    }
+        
     server {
         listen              443 ssl;
-
+        server_name         www.xxx.com;
+        root                /var/www/html;
+        index               index.php;
+        
         ssl on;
         ssl_certificate     /etc/nginx/ssl/chained.pem;
         ssl_certificate_key /etc/nginx/ssl/domain.key;
 
-        server_name         letstart.vip www.letstart.vip letstart.cc www.letstart.cc;
-        root                /var/www/html;
-        index               index.php;
-
         client_max_body_size 10M;
 
         location / {
-            proxy_pass      http://127.0.0.1;
+            proxy_pass      http://127.0.0.1:8080;
         }
 
-        location /admin123/ {
-            proxy_pass      http://127.0.0.1/qidian;
+        location /admin/ {
+            proxy_pass      http://127.0.0.1:8080/qidian;
         }
     }
 
@@ -76,13 +87,12 @@
     chmod 777 -R html
 
 8.修改启动项
-    
+
     systemctl start httpd
     systemctl enable httpd
     systemctl start nginx
     systemctl enable nginx
-    systemctl start mariadb
-    systemctl enable mariadb
+    
     
 9.定时任务配置
     
