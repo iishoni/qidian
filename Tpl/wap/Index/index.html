@@ -1,197 +1,209 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>起点</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="format-detection" content="telephone=no" />
-
-    <!-- Link Swiper's CSS -->
-    <link rel="stylesheet" type="text/css" href="__CSS1__/style.css">
-    <link rel="stylesheet" type="text/css" href="__CSS1__/foot.css">
-
-    <link rel="stylesheet" href="__CSS1__/head.css">
-    <link rel="stylesheet" href="__ICON__/iconfont.css">
-    <link rel="stylesheet" href="__ICONB__/iconfont.css">
-    <link rel="stylesheet" href="__ICO__/iconfont.css">
-    <script type="text/javascript" src="__JS1__/jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="__JS1__/jquery.touchSlider.js"></script>    
-    <script type="text/javascript" src="__PUBLIC__/layer/layer.js" ></script>
-
-<script type="text/javascript">
-$(document).ready(function(){
-
-    $(".main_visual").hover(function(){
-        $("#btn_prev,#btn_next").fadeIn()
-    },function(){
-        $("#btn_prev,#btn_next").fadeOut()
-    });
-    
-    $dragBln = false;
-    
-    $(".main_image").touchSlider({
-        flexible : true,
-        speed : 200,
-        btn_prev : $("#btn_prev"),
-        btn_next : $("#btn_next"),
-        paging : $(".flicking_con a"),
-        counter : function (e){
-            $(".flicking_con a").removeClass("on").eq(e.current-1).addClass("on");
-        }
-    });
-    
-    $(".main_image").bind("mousedown", function() {
-        $dragBln = false;
-    });
-    
-    $(".main_image").bind("dragstart", function() {
-        $dragBln = true;
-    });
-    
-    $(".main_image a").click(function(){
-        if($dragBln) {
-            return false;
-        }
-    });
-    
-    timer = setInterval(function(){
-        $("#btn_next").click();
-    }, 5000);
-    
-    $(".main_visual").hover(function(){
-        clearInterval(timer);
-    },function(){
-        timer = setInterval(function(){
-            $("#btn_next").click();
-        },5000);
-    });
-    
-    $(".main_image").bind("touchstart",function(){
-        clearInterval(timer);
-    }).bind("touchend", function(){
-        timer = setInterval(function(){
-            $("#btn_next").click();
-        }, 5000);
-    });
-    
-});
-</script>
+    <title>首页</title>
+    <include file="Common/header" />
+    <script type="text/javascript" src="__JS1__/jquery.touchSlider.js"></script>
 </head>
-<body>
-<div class="header">
-    <div class="header_l">
-     
-    </div>
-    <div class="header_c"> <h1>起点首页</h1></div>
-    <div class="header_r"><a href="{:U('Login/logout')}">退出</a></div>
-</div>
 
-<!-- banner  s-->
-<?php $banner=get_banner(1); ?>
-<div class="main_visual">
-    <div class="flicking_con">
-        <foreach name="banner" item="v">
-    
-        <a href="#">&nbsp;</a>
-    
-        </foreach>
+<body class="animated fadeIn">
+    <!--<div class="header">-->
+        <!--<div class="header_l">-->
 
-    </div>
-    <div class="main_image">
-        <ul>
+        <!--</div>-->
+        <!--<div class="header_c"> <h1>首页</h1></div>-->
+        <!--<div class="header_r"><a href="{:U('Login/logout')}">退出</a></div>-->
+    <!--</div>-->
+
+    <!-- banner  s-->
+    <?php $banner=get_banner(1); ?>
+    <div class="main_visual">
+        <div class="flicking_con">
             <foreach name="banner" item="v">
-            <li><span >
-            <if condition="$v['banner_link']">
-            <a href="{$v['banner_link']}"><img src="{$v.banner_img|get_cover}" alt=""></a>
-            <else/>
-            <img src="{$v.banner_img|get_cover}" alt="">
-            </if>
-            </span></li>
+                <a href="#">&nbsp;</a>
             </foreach>
-        
-      
-        </ul>
-        <a href="javascript:;" id="btn_prev" style="width: 320px; overflow: visible; display: none;"></a>
-         <a href="javascript:;" id="btn_next" style="width: 320px; overflow: visible; display: none;"></a>
+        </div>
+        <div class="main_image">
+            <ul>
+                <foreach name="banner" item="v">
+                <li>
+                    <span >
+                        <if condition="$v['banner_link']">
+                        <a href="{$v['banner_link']}"><img src="{$v.banner_img|get_cover}" alt=""></a>
+                        <else/>
+                        <img src="{$v.banner_img|get_cover}" alt="">
+                        </if>
+                    </span>
+                </li>
+                </foreach>
+            </ul>
+            <a href="javascript:;" id="btn_prev" style="width: 320px; overflow: visible; display: none;"></a>
+            <a href="javascript:;" id="btn_next" style="width: 320px; overflow: visible; display: none;"></a>
+        </div>
     </div>
-</div>
-<!-- banner  e-->
+    <!-- banner  e-->
 
-<div class="clear"></div>
-<div class="zxtz">
-    <div class="zxtzcc">
-        <p style="float:left;"><span><i class="iconfont gaog">&#xe61f;</i>公告</span></p>
-        <marquee class="marq" style="overflow:hidden;"><a href="{:U('News/NewsDetail',array('id'=>$news_info['id']))}">{$news_info.title}</a></marquee>
+    <div class="clear"></div>
+    <div class="zxtz">
+        <div class="zxtzcc">
+            <p style="float:left;">
+                <span>
+                    <svg class="icon" aria-hidden="true" style="font-size: 7vmin;">
+                        <use xlink:href="#icon-gonggao"></use>
+                    </svg>
+                    公告
+                </span>
+            </p>
+            <marquee class="marq" style="overflow:hidden;">
+                <a href="{:U('News/NewsDetail',array('id'=>$news_info['id']))}">{$news_info.title}</a>
+            </marquee>
+        </div>
     </div>
-</div>
-<div class="mian">
-    <div class="mian_mul">
-        <ul>
-            <li>
-                <a href="{:U('Panic/index')}">
-                    <i class="iconfont iconfoot1"  style="background:#ff9012;font-size: 8vmin;">&#xe633;</i>
-                    <p>抢单</p>
-                </a>
-            </li>
-            <li>
-                <a href="{:U('Index/building')}">
-                    <i class="iconfont iconfoot1"style="background: #15bdee;font-size: 9vmin;line-height: 16vmin;">
-                    &#xe60e;</i>
-                    <p>商城</p>
-                </a>
-            </li>
-            <!-- <li id="linnon">
-                <a href="http://q.eqxiu.com/s/4kC3eh4L">
-                    <i class="iconfont iconfoot1" style="background:#fd586e;font-size: 8.5vmin;">&#xe6be;</i>
-                    <p>农业</p>
-                </a>
-            </li> -->
 
-            <li >
-                <a href="{:U('News/index')}" >
-                    <i class="iconfont iconfoot1" style="background:#23d07a;font-size: 8vmin;">&#xe618;</i>
-                    <p>平台公告</p>
-                </a>
-            </li>
-            <li>
-                <a href="javascript:ewm()" >
-                    <i class="iconfont iconfoot1" style="background:#6c9ff5;font-size: 8.5vmin;">&#xe669;</i>
-                    <p>推广邀请</p>
-                </a>
-            </li>
-
-            <li id="linnon">
-                <a href="{:U('UserCenter/index')}">
-                    <i class="iconfont iconfoot1" style="background:#fb5643;font-size: 8vmin;">&#xe62f;</i>
-                    <p>个人中心</p>
-                </a>
-            </li>
-        </ul>
+    <div class="hstbj"></div>
+    <div class="mian">
+        <div class="mian_mul">
+            <ul>
+                <li>
+                    <a href="{:U('Panic/index')}">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-gouwuche"></use>
+                        </svg>
+                        <p>抢单</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{:U('Order/GiveHelp')}">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-xiaohaopinjilu-bian"></use>
+                        </svg>
+                        <p>订单记录</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{:U('Order/ReceiptHelp')}">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-zijinliushuimingxi-bian"></use>
+                        </svg>
+                        <p>提现记录</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:ewm()" >
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-erweima"></use>
+                        </svg>
+                        <p>推广邀请</p>
+                    </a>
+                </li>
+                <li >
+                    <a href="{:U('UserCenter/ActivateCode')}" >
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-tiaomacaiji"></use>
+                        </svg>
+                        <p>激活码</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{:U('UserCenter/BuyCode')}">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon--jinbi"></use>
+                        </svg>
+                        <p>抢单币</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
-</div>
 
+    <div class="hstbj"></div>
+    <div class="main_visual">
+        <a id="sign" href="#">
+            <img src="__IMG__/active_sign.png" style="width: 100%;" alt="">
+        </a>
+    </div>
 
-<div style="background: #f2f2f2;height: 3vmin;clear: both;margin-top:8vmin;"></div>
+    <div class="hstbj" style="height: 25vmin;"></div>
 
-<include file="Common/footer" />
-<script type="text/javascript">
-    function ewm(){
+    <include file="Common/footer" />
 
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            $(".main_visual").hover(function(){
+                $("#btn_prev,#btn_next").fadeIn()
+            },function(){
+                $("#btn_prev,#btn_next").fadeOut()
+            });
+
+            $dragBln = false;
+
+            $(".main_image").touchSlider({
+                flexible : true,
+                speed : 200,
+                btn_prev : $("#btn_prev"),
+                btn_next : $("#btn_next"),
+                paging : $(".flicking_con a"),
+                counter : function (e){
+                    $(".flicking_con a").removeClass("on").eq(e.current-1).addClass("on");
+                }
+            });
+
+            $(".main_image").bind("mousedown", function() {
+                $dragBln = false;
+            });
+
+            $(".main_image").bind("dragstart", function() {
+                $dragBln = true;
+            });
+
+            $(".main_image a").click(function(){
+                if($dragBln) {
+                    return false;
+                }
+            });
+
+            timer = setInterval(function(){
+                $("#btn_next").click();
+            }, 5000);
+
+            $(".main_visual").hover(function(){
+                clearInterval(timer);
+            },function(){
+                timer = setInterval(function(){
+                    $("#btn_next").click();
+                },5000);
+            });
+
+            $(".main_image").bind("touchstart",function(){
+                clearInterval(timer);
+            }).bind("touchend", function(){
+                timer = setInterval(function(){
+                    $("#btn_next").click();
+                }, 5000);
+            });
+
+        });
+
+        $('#sign').on('click',function () {
+            $.post("{:U('/UserCenter/sign')}", {}, function(data) {
+                msg_alert(data.message);
+            },"json");
+        });
+
+        function ewm(){
             layer.open({
               type: 1,
               title: false,
-    
+
               shadeClose: true,
               closeBtn: false,
               shade: 0.5,
-              area: ['220px', '220px'],
-              content: '<img width="220" height="220" src="http://qr.liantu.com/api.php?el=l&amp;w=265&amp;m=10&amp;text=http://{$_SERVER['HTTP_HOST']}/Home/Login/RegUser/mobile/{$u_info.mobile}" style="display:block;margin:0 auto;">' //iframe的url
-            }); 
-            
-        } 
-</script>
+              area: ['80vmin', '100vmin'],
+              content: '<div class="ewm_bg"><img src="http://qr.liantu.com/api.php?el=l&amp;w=265&amp;m=10&amp;text=https://qd.iishoni.com/Home/Login/RegUser/mobile/{$u_info.mobile}"/></div>' //iframe的url
+            });
+        }
+    </script>
+
 </body>
 </html>

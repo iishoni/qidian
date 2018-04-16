@@ -1,183 +1,201 @@
-﻿	<include file="Common/header" />
-	 <script src="__JS1__/jquery.SuperSlide.2.1.1.js" type="text/javascript"></script>
-	 <style type="text/css">
-			.gboy_button {
-			    background: #D0EEFF;
-			    border: 1px solid #99D3F5;
-			    border-radius: 4px;
-			    padding: 4px 12px;
-			    color: #1E88C7;
-			    text-decoration: none;
-			    line-height: 20px;
-			}
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <include file="Common/header" />
+    <script type="text/javascript" src="__JS__/sc.js"></script>
+    <script type="text/javascript" src="__JS1__/jquery.SuperSlide.2.1.1.js"></script>
+    <style type="text/css">
+        .gboy_button {
+            background: #D0EEFF;
+            border: 1px solid #99D3F5;
+            border-radius: 4px;
+            padding: 4px 12px;
+            color: #1E88C7;
+            text-decoration: none;
+            line-height: 20px;
+        }
 
-			#preview img{
-				max-width:30vmin;
-				max-height:30vmin;
-			}
-			
-	 </style>
-		
+        #preview img{
+            max-width:30vmin;
+            max-height:30vmin;
+        }
 
-<body>
-<div class="header">
-    <div class="header_l">
-      <a href="{:U('UserCenter/index')}"><img src="__IMG__/lpg.png" alt=""></a>
-   
+        body {
+            background-image: url(../../../Public/home/images/bg1.jpg);
+            background-size: 100%;
+        }
+
+        body p {
+            font-weight: 600
+        }
+    </style>
+</head>
+
+<body class="animated slideInDown">
+    <div class="header">
+        <div class="header_l">
+          <a href="javascript:history.go(-1)"><img src="__IMG__/lpg.png" alt=""></a>
+
+        </div>
+        <div class="header_c"> <h1>订单记录</h1></div>
+        <div class="header_r"></div>
+        <!-- <span><a href=""><img src="" alt=""></a></span> -->
     </div>
-    <div class="header_c"> <h1>抢单记录</h1></div>
-    <div class="header_r"></div>
-    <!-- <span><a href=""><img src="" alt=""></a></span> -->
-</div>
 
-<div class="demo">
-    <div class="bt hd">
-        <ul>
-            <li>本人</li>
-            <li>下级</li>
-        </ul>
-    </div>
-    <div style="background: #f2f2f2;height: 2vmin;"></div>
+    <div class="demo">
+        <div class="bt hd">
+            <ul>
+                <li>本人</li>
+                <li>下级</li>
+            </ul>
+        </div>
+        <div style="background: #f2f2f2;height: 2vmin;"></div>
     <div class="contan bd">
-    <!-- 本人  S-->
+        <!-- 本人  S-->
         <ul>
 			<volist name="list" id="foo">
-		
-            <div class="record" data-order-id="{$foo['id']}">
-                <p class="{$foo['_status_class']}">打款人姓名：{$foo['username']} <i class="iconfont">{$foo['_status_ico']}</i> <span class="jiang">￥{$foo['money']}</span></p>
-                <p>{$foo['datetime']|date='Y-m-d H:i:s',###}<span class="shownext" >{$foo['_status_text']}<i class="iconfont middle">&#xe655;</i></span></p>
-				<if condition="!empty($foo['status'])">
-                <p style="display:none;">抢购天数：0     <i style="margin-left: 3%;">收益：0</i> </p>
-				
-				<volist name="foo['_receipt']" id="r">
-                <div class="record_bottom">
-                    <p style="color:#e93325;">收款人姓名：{$r['r_username']}</p>
-					
-                    <p style="color:#e93325;">手机号码：{$r['r_account']}</p>
-                    <p style="color:#0285f4;">微信：{$r['r_wechat']}</p>
-                    <p style="color:#0285f4;">支付宝：{$r['r_alipay']}</p>
-                    <p style="color:#0285f4;">卡号：{$r['r_bank_account']}   </p>
-					
-                    <p style="color:#e98125;">推荐人姓名：{$r['r_push_username']}</p>
-                    <p style="color:#e98125;">推荐人手机：{$r['r_push_mobile']}</p>
-                    <p style="color:#999898;">款：{$r['money']} </p>
-                    <p style="color:#999898;">状态：{$r['_status_text']} </p>
-                    <p style="color:#999898;">时间：{$r['_datetime']|date='Y-m-d H:i:s',###}</p>
-					<if condition="$r['status'] eq 0">
-					<div class="uploads">
-						<form action="{:U('GiveHelp')}" method="post" enctype="multipart/form-data" onsubmit="return checkfrom()" >
-						 <div>
-					        <a id="preview" href="javascript:">
-					            <img id="imghead" src="/Public/Home/images/uploderimg.jpg" alt="">
-					        </a>
-					        <input id="open" style="display: none;" type="file" name="picture" onchange="previewImage(this)" class="inputb">
-						  </div>
+                <div class="record" data-order-id="{$foo['id']}">
+                    <p class="{$foo['_status_class']}">打款人姓名：{$foo['username']}
+                        <i class="iconfont">{$foo['_status_ico']}</i>
+                        <span class="jiang">￥{$foo['money']}</span>
+                    </p>
+                    <p>{$foo['datetime']|date='Y-m-d H:i:s',###}
+                        <span class="shownext {$foo['_status_class']}" >{$foo['_status_text']}
+                            <svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-guifanliebiaoxiayibu"></use>
+                            </svg>
+                        </span>
+                    </p>
+                    <if condition="!empty($foo['status'])">
+                        <p style="display:none;">抢购天数：0
+                            <i style="margin-left: 3%;">收益：0</i>
+                        </p>
+                        <volist name="foo['_receipt']" id="r">
+                            <div class="record_bottom">
+                                <p style="color:#e93325;">收款人姓名：{$r['r_username']}</p>
 
-						  <div>
-						  	<input  class="gboy_button" type="submit" value="提交" name="" id="">
-							<input   type="hidden" value="{$r['id']}" name="order_id" >
-						  </div>
-						</form>
-					</div>
-					
-					</if>
-					
+                                <p style="color:#e93325;">手机号码：{$r['r_account']}</p>
+                                <p style="color:#0285f4;">微信：{$r['r_wechat']}</p>
+                                <p style="color:#0285f4;">支付宝：{$r['r_alipay']}</p>
+                                <p style="color:#0285f4;">卡号：{$r['r_bank_account']}   </p>
+
+                                <p style="color:#e98125;">推荐人姓名：{$r['r_push_username']}</p>
+                                <p style="color:#e98125;">推荐人手机：{$r['r_push_mobile']}</p>
+                                <p style="color:#000000;">款：{$r['money']} </p>
+                                <p style="color:#000000;">状态：{$r['_status_text']} </p>
+                                <p style="color:#000000;">时间：{$r['_datetime']|date='Y-m-d H:i:s',###}</p>
+
+                                <if condition="$r['status'] eq 0">
+                                    <div class="uploads">
+                                        <form action="{:U('GiveHelp')}" method="post" enctype="multipart/form-data" onsubmit="return checkfrom()" >
+                                            <div>
+                                                <a id="preview" href="javascript:">
+                                                    <img id="imghead" src="/Public/Home/images/uploderimg.jpg" alt="">
+                                                </a>
+                                                <input id="open" style="display: none;" type="file" name="picture" onchange="previewImage(this)" class="inputb">
+                                            </div>
+                                            <div>
+                                                <input  class="gboy_button" type="submit" value="提交" name="" id="">
+                                                <input   type="hidden" value="{$r['id']}" name="order_id" >
+                                            </div>
+                                        </form>
+                                    </div>
+                                </if>
+                            </div>
+                        </volist>
+                    </if>
                 </div>
-				
-				</volist>
-				</if>
-            </div>
-            <div style="background: #f2f2f2;height: 2vmin;"></div>
+                <div style="background: #f2f2f2;height: 2vmin;"></div>
 			</volist>
-         
         </ul>
+        <!-- 本人 E-->
 
-    <!-- 本人 E-->
-
-    <!-- 下级 S-->
+        <!-- 下级 S-->
         <ul>
-		
-		
            	<volist name="list2" id="foo">
-		
-            <div class="record" data-order-id="{$foo['id']}">
-                <p class="{$foo['_status_class']}">打款人姓名：{$foo['username']} <i class="iconfont">{$foo['_status_ico']}</i> <span class="jiang">￥{$foo['money']}</span></p>
-                <p>{$foo['datetime']|date='Y-m-d H:i:s',###}<span class="shownext" >{$foo['_status_text']}<i class="iconfont middle">&#xe655;</i></span></p>
-				<if condition="!empty($foo['status'])">
-                <p  style="display:none;">抢购天数：0     <i style="margin-left: 3%;">收益：0</i> </p>
-				
-				<volist name="foo['_receipt']" id="r">
-                <div class="record_bottom">
-                    <p style="color:#e93325;">收款人姓名：{$r['r_username']}</p>
-                    <p style="color:#e93325;">手机号码：{$r['r_account']}</p>
-                    <p style="color:#0285f4;">微信：{$r['r_wechat']}</p>
-                    <p style="color:#0285f4;">支付宝：{$r['r_alipay']}</p>
-                    <p style="color:#0285f4;">卡号：{$r['r_bank_account']}   </p>
-                    <p style="color:#e98125;">推荐人姓名：{$r['r_push_username']}</p>
-                    <p style="color:#e98125;">推荐人手机：{$r['r_push_mobile']}</p>
-                    <p style="color:#999898;">款：{$r['money']} </p>
-                    <p style="color:#999898;">状态：{$r['_status_text']} </p>
-                    <p style="color:#999898;">时间：{$r['_datetime']|date='Y-m-d H:i:s',###}</p>
-					<if condition="$r['status'] eq 0">
-					<div class="uploads">
-						<form action="{:U('GiveHelp')}" method="post" enctype="multipart/form-data" onsubmit="return checkfrom()" >
-						 <div>
-					        <a id="preview2" href="javascript:">
-					            <img id="imghead2" src="/Public/Home/images/uploderimg.jpg" alt="">
-					        </a>
-					        <input id="open" style="display: none;" type="file" name="picture" onchange="previewImage2(this)" class="inputb">
-						  </div>
+                <div class="record" data-order-id="{$foo['id']}">
+                    <p class="{$foo['_status_class']}">打款人姓名：{$foo['username']}
+                        <i class="iconfont">{$foo['_status_ico']}</i>
+                        <span class="jiang">￥{$foo['money']}</span>
+                    </p>
+                    <p>{$foo['datetime']|date='Y-m-d H:i:s',###}
+                        <span class="shownext" >{$foo['_status_text']}
+                            <svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-guifanliebiaoxiayibu"></use>
+                            </svg>
+                        </span>
+                    </p>
+                    <if condition="!empty($foo['status'])">
+                        <p  style="display:none;">抢购天数：0
+                            <i style="margin-left: 3%;">收益：0</i>
+                        </p>
+                        <volist name="foo['_receipt']" id="r">
+                            <div class="record_bottom">
+                                <p style="color:#e93325;">收款人姓名：{$r['r_username']}</p>
 
-						  <div>
-						  	<input  class="gboy_button" type="submit" value="提交" name="" id="">
-							<input   type="hidden" value="{$r['id']}" name="order_id" >
-						  </div>
-						</form>
-					</div>
-						
-					</if>
-					
+                                <p style="color:#e93325;">手机号码：{$r['r_account']}</p>
+                                <p style="color:#0285f4;">微信：{$r['r_wechat']}</p>
+                                <p style="color:#0285f4;">支付宝：{$r['r_alipay']}</p>
+                                <p style="color:#0285f4;">卡号：{$r['r_bank_account']}   </p>
+
+                                <p style="color:#e98125;">推荐人姓名：{$r['r_push_username']}</p>
+                                <p style="color:#e98125;">推荐人手机：{$r['r_push_mobile']}</p>
+                                <p style="color:#000000;">款：{$r['money']} </p>
+                                <p style="color:#000000;">状态：{$r['_status_text']} </p>
+                                <p style="color:#000000;">时间：{$r['_datetime']|date='Y-m-d H:i:s',###}</p>
+                                <if condition="$r['status'] eq 0">
+                                    <div class="uploads">
+                                        <form action="{:U('GiveHelp')}" method="post" enctype="multipart/form-data" onsubmit="return checkfrom()" >
+                                            <div>
+                                                <a id="preview2" href="javascript:">
+                                                    <img id="imghead2" src="/Public/Home/images/uploderimg.jpg" alt="">
+                                                </a>
+                                                <input id="open" style="display: none;" type="file" name="picture" onchange="previewImage2(this)" class="inputb">
+                                            </div>
+                                            <div>
+                                                <input  class="gboy_button" type="submit" value="提交" name="" id="">
+                                                <input   type="hidden" value="{$r['id']}" name="order_id" >
+                                            </div>
+                                        </form>
+                                    </div>
+                                </if>
+                            </div>
+                        </volist>
+                    </if>
                 </div>
-				
-				</volist>
-				</if>
-            </div>
-            <div style="background: #f2f2f2;height: 2vmin;"></div>
+                <div style="background: #f2f2f2;height: 2vmin;"></div>
 			</volist>
-
-         
         </ul>
-<!-- 下级  E-->
+        <!-- 下级  E-->
     </div>
 </div>
-<script type="text/javascript">jQuery(".demo").slide();</script>
 
-<script type="text/javascript" src="__JS__/sc.js"></script>
-<script type="text/javascript">
-    $('span.shownext').click(function(){
-        $(this).parents('.record').siblings('.record').find('.record_bottom').slideUp();
-        $(this).parents('.record').find('.record_bottom').slideToggle();
-    });
+    <script type="text/javascript">
+        jQuery(".demo").slide();
 
-    $("#preview").click(function(){
-       $(this).next('input').click();
-    });
-    $("#preview2").click(function(){
-       $(this).next('input').click();
-    });
+        $('span.shownext').click(function(){
+            $(this).parents('.record').siblings('.record').find('.record_bottom').slideUp();
+            $(this).parents('.record').find('.record_bottom').slideToggle();
+        });
 
-    function checkfrom(){
-        var pic=$("input[name='picture']").val();
-        if(pic){
-            return true;
+        $("#preview").click(function(){
+            $(this).next('input').click();
+        });
+        $("#preview2").click(function(){
+            $(this).next('input').click();
+        });
+
+        function checkfrom(){
+            var pic=$("input[name='picture']").val();
+            if(pic){
+                return true;
+            }
+            else{
+                alert('请上传凭证');
+                return false;
+            }
         }
-        else{
-            alert('请上传凭证');
-            return false;
-        }
-    }
-</script>
-
+    </script>
 </body>
 </html>
 

@@ -1,65 +1,71 @@
-﻿<include file="Common/header" />
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<include file="Common/header" />
+	<style type="text/css">
+		.level_table{font-size:14px;}
 
-<style type="text/css">
-	.level_table{font-size:14px;}
+		.level_table tr td{line-height:10vmin;}
+		.list tr:nth-child(even) {
+			text-align: center;
+			line-height: 14vmin;
+			color: #626262;
+			background: #f5f5f5;
+		}
+		.level_tablebb tr td,.level_tablebb tr th{
+			border: 1px solid #ccc;
+		}
 
-	.level_table tr td{line-height:10vmin;}
-	.list tr:nth-child(even)
-	{
-		text-align: center;
-		line-height: 14vmin;
-		color: #626262;
-		background: #f5f5f5;
-	}
-	.level_tablebb tr td,.level_tablebb tr th{
-		border: 1px solid #ccc;
-	}
-</style>
-
+		body {
+			background-image: url(../../../Public/home/images/bg2.jpg);
+			background-size: 100%;
+		}
+	</style>
 </head>
-<body>
-<div class="header">
-	<div class="header_l">
-		<a href="javascript:history.go(-1)"><img src="__IMG__/lpg.png" alt=""></a>
+
+<body class="animated fadeIn">
+	<div class="header">
+		<div class="header_l">
+			<a href="javascript:history.go(-1)"><img src="__IMG__/lpg.png" alt=""></a>
+		</div>
+		<div class="header_c"> <h1>推广奖金解冻</h1></div>
+		<div class="header_r"></div>
 	</div>
-	<div class="header_c"> <h1>业绩红利</h1></div>
-	<div class="header_r"></div>
-</div>
 
-<div class="level">
-	<div class="level_table">
-		<table style="width: 100%;">
-			<thead>
-			<tr>
-
-				<th width="25%">收益类型</th>
-				<th style="width: 25%;">收益</th>
-				<th width="25%">状态</th>
-				<th width="25%">收益时间</th>
-			</tr>
-			</thead>
-			<tbody>
-			<volist name="list" id="foo">
+	<div class="level">
+		<div class="level_table" style=" background-color: transparent;">
+			<table style="width: 100%;">
+				<thead>
 				<tr>
 
-					<td>{$foo['content']}</td>
-					<td>{$foo['money']}</td>
-					<if condition="$foo['isok']">
-						<td class="green">完成</td>
-						<else/>
-						<td class="red">冻结中</td>
-					</if>
-					<td class="red">
-						{$foo['time']}
-					</td>
+					<th width="25%">收益类型</th>
+					<th style="width: 25%;">收益</th>
+					<th width="25%">状态</th>
+					<th width="25%">收益时间</th>
 				</tr>
-			</volist>
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+				<volist name="list" id="foo">
+					<tr>
 
+						<td>{$foo['content']}</td>
+						<td>{$foo['money']}</td>
+						<if condition="$foo['isok']">
+							<td class="green">完成</td>
+							<else/>
+							<td class="red">冻结中</td>
+						</if>
+						<td class="red">
+							{$foo['time']}
+						</td>
+					</tr>
+				</volist>
+				</tbody>
+			</table>
+
+		</div>
+		<div class="page">{$page}</div>
 	</div>
-	<div class="page">{$page}</div>
-</div>
 
 </body>
 </html>

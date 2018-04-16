@@ -356,7 +356,7 @@ CREATE TABLE IF NOT EXISTS `ysk_news` (
 --
 
 INSERT INTO `ysk_news` (`id`, `title`, `content`, `create_time`, `uid_str`, `status`) VALUES
-(4, '起点上线平台公告起点上线平台公告', '&lt;p&gt;\r\n	机缘，在合作中生根，情谊，在合作中加深；事业在合作中壮大；梦想，在合作中腾飞，\r\n&lt;/p&gt;\r\n&lt;p class=&quot;MsoNormal&quot;&gt;\r\n	起点互助\r\n&lt;/p&gt;\r\n于11月1日正式扬帆启航\r\n&lt;p&gt;\r\n	&lt;br /&gt;\r\n&lt;/p&gt;', 1500346692, '', 1);
+(4, '悦隆盟上线平台公告', '&lt;p&gt;\r\n	机缘，在合作中生根；情谊，在合作中加深；事业，在合作中壮大；梦想，在合作中腾飞。\r\n&lt;/p&gt;\r\n&lt;p class=&quot;MsoNormal&quot;&gt;\r\n	欢迎加入悦隆盟\r\n&lt;/p&gt;\r\n\r\n&lt;p&gt;\r\n	&lt;br /&gt;\r\n&lt;/p&gt;', 1500346692, '', 1);
 
 -- --------------------------------------------------------
 

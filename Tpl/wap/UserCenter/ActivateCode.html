@@ -1,56 +1,62 @@
-<include file="Common/header"/>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <include file="Common/header" />
+    <style type="text/css">
+        .list tr:nth-child(even) {
+            text-align: center;
+            line-height: 14vmin;
+            color: #626262;
+            background: #f5f5f5;
+        }
 
-<style type="text/css">
-    
-   .list tr:nth-child(even)
-    {
-        text-align: center;
-        line-height: 14vmin;
-        color: #626262;
-        background: #f5f5f5;
-    }
-</style>
-<body>
-<div class="header">
-    <div class="header_l">
-      <a href="javascript:history.go(-1)"><img src="__IMG__/lpg.png" alt=""></a>
-   
+        body {
+            background-image: url(../../../Public/home/images/bg1.jpg);
+            background-size: 100%;
+        }
+    </style>
+</head>
+
+<body class="animated fadeIn">
+    <div class="header">
+        <div class="header_l">
+          <a href="javascript:history.go(-1)"><img src="__IMG__/lpg.png" alt=""></a>
+
+        </div>
+        <div class="header_c"> <h1>激活码</h1></div>
+        <div class="header_r"></div>
     </div>
-    <div class="header_c"> <h1>激活码</h1></div>
-    <div class="header_r"></div>
-</div>
 
-<div class="ticket">
-    <form  method="post" >
-    <table style="width:100%;">
-        <tr>
-            <th>接收人手机号：</th>
-            <td><input type="number" name="to_mobile" class="textbt"></td>
-        </tr>
-        <tr>
-            <th>赠送数量：</th>
-            <td><input type="number" name="to_num" class="textbt"></td>
-        </tr>
-        <tr>
-            <th>持有数量：</th>
-            <td><input type="text" class="textbt" disabled="true" placeholder="{$num}"></td>
-        </tr>
-        <tr>
-            <th>二级密码：</th>
-            <td><input type="password" name="pwd_two" class="textbt"></td>
-        </tr>
-        <tr>
-            <th><img src="{:U('UserCenter/verify')}" alt="" id="imgcode" onclick="change_code()" style="width: 80%;vertical-align: middle;"></th>
-            <td><input type="text" class="textbt" name="code" placeholder="验证码"></td>
-        </tr>
-    </table>
-    </form>
-    <a href="javascript:postform()" class="qzanbt">确认</a>
+    <div class="ticket">
+        <form  method="post" >
+        <table style="width:100%;">
+            <tr>
+                <th>接收人手机号：</th>
+                <td><input type="number" name="to_mobile" class="textbt"></td>
+            </tr>
+            <tr>
+                <th>赠送数量：</th>
+                <td><input type="number" name="to_num" class="textbt"></td>
+            </tr>
+            <tr>
+                <th>持有数量：</th>
+                <td><input type="text" class="textbt" disabled="true" placeholder="{$num}"></td>
+            </tr>
+            <tr>
+                <th>二级密码：</th>
+                <td><input type="password" name="pwd_two" class="textbt"></td>
+            </tr>
+            <tr>
+                <th><img src="{:U('UserCenter/verify')}" alt="" id="imgcode" onclick="change_code()" style="width: 80%;vertical-align: middle;"></th>
+                <td><input type="text" class="textbt" name="code" placeholder="验证码"></td>
+            </tr>
+        </table>
+        </form>
+        <a href="javascript:postform()" class="qzanbt">确认</a>
 
-</div>
+    </div>
 
-
-<div class="level" style="margin-right: 3%;margin-left: 3%;">
+    <div class="level" style="margin-right: 3%;margin-left: 3%;">
         <div class="level_tablebb" style="border:1px solid #e5e5e5;">
             <table style="width: 100%;">
                 <thead>

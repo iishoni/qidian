@@ -1,34 +1,41 @@
 ﻿<style>
-	footer i{color:#787878;}
-	footer .active,footer  .active i{color:#e93325;}
+    footer i {
+        color: #787878;
+    }
+
+    footer .active i {
+        color: #e93325;
+    }
 </style>
 
-
-<div style="height: 20vmin;"></div>
-<?php 
-    
+<?php
     $con_name=strtolower(CONTROLLER_NAME);
     $act_name=strtolower(ACTION_NAME);
     $ac_name=$con_name.'-'.$act_name;
  ?>
 <footer>
-   <a <eq name="ac_name" value='index-index' >class="active"</eq> href="__ROOT__/"><i class="iconfont iconfoot2">&#xe720;</i>
+   <a <eq name="ac_name" value='index-index' >class="active"</eq> href="__ROOT__/">
+        <svg class="icon" aria-hidden="true" style="font-size: 8vmin; margin-top: 0.5vmin">
+            <use xlink:href="#icon-fangzi"></use>
+        </svg>
         <p>首页</p>
     </a>
     <a <eq name="con_name" value='panic' >class="active"</eq> href="{:U('Panic/index')}" >
-        <i class="iconfont iconfoot2" >&#xe633;</i>
+        <svg class="icon" aria-hidden="true" style="font-size: 8vmin; margin-top: 0.5vmin">
+            <use xlink:href="#icon-gouwuche1"></use>
+        </svg>
         <p>抢单</p>
     </a>
     <a <eq name="con_name" value='news' >class="active"</eq> href="{:U('News/index')}" >
-        <i class="iconfont iconfoot2" style="font-size: 6vmin;line-height: 8.2vmin;">&#xe617;</i>
+        <svg class="icon" aria-hidden="true" style="font-size: 8vmin; margin-top: 0.5vmin">
+            <use xlink:href="#icon-naozhong"></use>
+        </svg>
         <p>公告</p>
     </a>
-    <!-- <a <eq name="ac_name" value='index-building' >class="active"</eq> href="http://q.eqxiu.com/s/4kC3eh4L" >
-        <i class="iconfont iconfoot2" style="font-size: 7.3vmin;">&#xe6be;</i>
-        <p>农业</p>
-    </a> -->
-    <a <eq name="con_name" value='usercenter' >class="active"</eq> href="{:U('UserCenter/index')}" style="padding-top:0px;">
-        <i class="iconfont iconfoot2" style="font-size: 6vmin;margin-top:3px;">&#xe62f;</i>
-        <p style="line-height: 7vmin;">个人中心</p>
+    <a <eq name="con_name" value='usercenter' >class="active"</eq> href="{:U('UserCenter/index')}">
+        <svg class="icon" aria-hidden="true" style="font-size: 8vmin; margin-top: 0.5vmin">
+            <use xlink:href="#icon-gerenzhongxin"></use>
+        </svg>
+        <p>个人中心</p>
     </a>
 </footer>

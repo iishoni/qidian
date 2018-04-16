@@ -369,4 +369,21 @@ class UserCenterController extends CommonController {
         
     }
 
+    public function sign() {
+        $userid = get_userid();
+        if(IS_AJAX) {
+            $user = M("User")->field("sign_week")->where(array('userid'=>$userid))->find();
+
+            if(date('Ymd', time()) === date('Ymd', $user['sign_week'])) {
+                ajaxReturn('今天已经签到了，明天再来哦！');
+            } else {
+                // 更新签到时间
+                D('User')->where(array('userid'=>$userid))->setField('sign_week',time());
+                // 更新收益积分
+                D('Store')->where(array('uid' => $userid))->setInc('income_num', 5);
+                ajaxReturn('签到成功！');
+            }
+        }
+    }
+
 }

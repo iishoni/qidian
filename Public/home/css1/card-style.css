@@ -1,0 +1,223 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700,900);
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+body {
+  /*background: -webkit-linear-gradient(top, #8c7a7a 0%, #af877c 65%, #af877c 100%) fixed;*/
+  /*background: linear-gradient(to bottom, #8c7a7a 0%, #af877c 65%, #af877c 100%) fixed;*/
+  /*background: url("../img/coc-background.jpg") no-repeat center center fixed;*/
+  /*background-size: cover;*/
+  font: 14px/20px "Lato", Arial, sans-serif;
+  /*color: #9E9E9E;*/
+  /*margin-top: 30px;*/
+}
+
+.card-container {
+  margin: auto;
+  width: 100vmin;
+  text-align: center;
+}
+
+.wrapper {
+  padding-top: 10vmin;
+  padding-bottom: 10vmin;
+}
+.wrapper:focus {
+  outline: 0;
+}
+
+.card {
+  background: white;
+  width: 60%;
+  display: inline-block;
+  margin: auto;
+  border-radius: 19px;
+  position: relative;
+  text-align: center;
+  box-shadow: -1px 15px 30px -12px black;
+  z-index: 9999;
+}
+
+.card_image {
+  position: relative;
+  height: 45vmin;
+  margin-bottom: 10vmin;
+  border-top-left-radius: 3vmin;
+  border-top-right-radius: 3vmin;
+}
+
+
+/* ================= 图片 =============== */
+.card_image_normal {
+  background: url("../../home/images/card_normal_bg.jpg");
+}
+.card_image_normal img {
+  width: 80vmin;
+  position: absolute;
+  margin-top: -15vmin;
+  margin-left: -10vmin;
+}
+
+.card_image_income {
+  background: url("../../home/images/card_income_bg.jpg");
+}
+.card_image_income img {
+  width: 400px;
+  position: absolute;
+  top: -34px;
+  left: -37px;
+}
+
+.card_image_giant {
+  background: url("../../home/images/card_giant_bg.jpg");
+}
+.card_image_giant img {
+  width: 340px;
+  position: absolute;
+  top: -30px;
+  left: -25px;
+}
+
+.card_image_extra {
+  background: url("../../home/images/card_extra_bg.jpg");
+}
+.card_image_extra img {
+  width: 370px;
+  position: absolute;
+  top: -21px;
+  left: -37px;
+}
+
+.card_image_wizard {
+  background: url("../../home/images/card_wizard_bg.jpg");
+}
+.card_image_wizard img {
+  width: 345px;
+  position: absolute;
+  top: -28px;
+  left: -10px;
+}
+/* ================= 图片 =============== */
+
+
+.card_level {
+  text-transform: uppercase;
+  font-size: 13vmin;
+  font-weight: 800;
+  margin-bottom: 2vmin;
+  margin-top: 10vmin;
+}
+
+/* ================= 文字颜色 =============== */
+.card_level_normal {
+  color: #EC9B3B;
+}
+
+.card_level_income {
+  color: #EE5487;
+}
+
+.card_level_giant {
+  color: #F6901A;
+}
+
+.card_level_extra {
+  color: #82BB30;
+}
+
+.card_level_wizard {
+  color: #4FACFF;
+}
+/* ================= 文字颜色 =============== */
+
+
+.card_unit-name {
+  font-size: 6vmin;
+  color: #7d7d7d;
+  font-weight: 900;
+  margin-top: 10vmin;
+}
+
+.card_unit-description {
+  padding: 5vmin;
+  margin-bottom: 2vmin;
+}
+
+
+/* ================= 底部栏 =============== */
+.card_unit_stats_normal {
+  background: #EC9B3B;
+}
+.card_unit_stats_normal .bottom {
+  border-right: 0.5vmin solid #BD7C2F;
+}
+
+.card_unit_stats_income {
+  background: #EE5487;
+}
+.card_unit_stats_income .bottom {
+  border-right: 1px solid #D04976;
+}
+
+.card_unit_stats_giant {
+  background: #F6901A;
+}
+.card_unit_stats_giant .bottom {
+  border-right: 1px solid #de7b09;
+}
+
+.card_unit_stats_extra {
+  background: #82BB30;
+}
+.card_unit_stats_extra .bottom {
+  border-right: 1px solid #71a32a;
+}
+
+.card_unit_stats_wizard {
+  background: #4FACFF;
+}
+.card_unit_stats_wizard .bottom {
+  border-right: 1px solid #309eff;
+}
+/* ================= 底部栏 =============== */
+
+
+.card_unit_stats {
+  color: white;
+  font-weight: 500;
+  border-bottom-left-radius: 3vmin;
+  border-bottom-right-radius: 3vmin;
+}
+.card_unit_stats .bottom {
+  width: 50%;
+  float: left;
+  padding: 4vmin 3vmin;
+}
+.card_unit_stats .stat {
+  position: relative;
+  font-size: 4vmin;
+  /*margin-bottom: 0.5vmin;*/
+}
+.card_unit_stats .no-border {
+  border-right: none;
+}
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+.slick-prev {
+  left: 100px;
+  z-index: 999;
+}
+
+.slick-next {
+  right: 100px;
+  z-index: 999;
+}

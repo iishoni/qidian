@@ -196,7 +196,7 @@ class LoginController extends Controller
             $data['safety_pwd']=$user->pwdMd5($data['safety_pwd'],$salt);
             $data['safety_salt']=$salt;
             $data['account']=$data['mobile'];
-            $data['head_img']='/Public/home/images/tx.jpg';
+            $data['head_img']='/Public/home/images/tx.png';
 
             //添加层级
             $data['deep']=$user->getdeep($data['pid']);

@@ -80,7 +80,7 @@ public function return_ti(){
 
             }else{
                 $result["status"] = "1";
-                $result["data"] = array("i"=>"3","c"=>"180","tip"=>"没抢到哦。");
+                $result["data"] = array("i"=>"0","c"=>"0","tip"=>"没抢到哦，不要灰心，继续努力吧！");
                 echo  json_encode($result);
                  exit;
             }
@@ -98,7 +98,13 @@ public function return_ti(){
             }
 
 
-            $award = array('1000'=>array("i"=>"5","c"=>"300","tip"=>"1000"),'2000'=>array("i"=>"0","c"=>"0","tip"=>"2000"),'3000'=>array("i"=>"4","c"=>"240","tip"=>"3000"),'5000'=>array("i"=>"1","c"=>"60","tip"=>"5000"),'10000'=>array("i"=>"2","c"=>"120","tip"=>"10000"),'0'=>array("i"=>"3","c"=>"180","tip"=>"没抢到哦。"));
+            $award = array(
+                '1000'=>array("i"=>"1","c"=>"7","tip"=>"1000"),
+                '2000'=>array("i"=>"2","c"=>"6","tip"=>"2000"),
+                '3000'=>array("i"=>"3","c"=>"3","tip"=>"3000"),
+                '5000'=>array("i"=>"4","c"=>"4","tip"=>"5000"),
+                '10000'=>array("i"=>"5","c"=>"5","tip"=>"10000"),
+                '0'=>array("i"=>"0","c"=>"0","tip"=>"没抢到哦，不要灰心，继续努力吧！"));
             $result["status"] = "1";
             $result["data"] =$award[$money];
 
@@ -190,6 +196,13 @@ public function return_ti(){
             $s_info=D('Store')->StoreInfo('common_num,income_num,recommen_num');
             $this->assign('s_info',$s_info)->display();
         }
+    }
+
+    public function Points(){
+        $userid=get_userid();
+        $s_info=D('Store')->field('common_num,income_num,recommen_num,fee_num,wealth_num')->find($userid);
+        $this->assign('s_info',$s_info);
+        $this->display();
     }
 
 }

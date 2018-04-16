@@ -1,45 +1,17 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
     <title>抢单</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="format-detection" content="telephone=no" />
-
-    <!-- Link Swiper's CSS -->
-    <link rel="stylesheet" href="__CSS__/style1.css">
-    <link rel="stylesheet" type="text/css" href="__CSS1__/style.css">
-    <link rel="stylesheet" type="text/css" href="__CSS1__/foot.css">
-    <link rel="stylesheet" type="text/css" href="__CSS1__/demo.css">
-
-    <link rel="stylesheet" href="__CSS1__/head.css">
-    <link rel="stylesheet" href="__ICON__/iconfont.css">
-    <link rel="stylesheet" href="__ICO__/iconfont.css">
-    <link rel="stylesheet" href="__ICONB__/iconfont.css">
-    <script type="text/javascript" src="__JS1__/jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="__JS1__/jquery.SuperSlide.2.1.1.js"></script>
-    <script type="text/javascript" src="__PUBLIC__/layer/layer.js" ></script>
-    <script type="text/javascript" src="__PUBLIC__/layer/message.js" ></script>
+    <include file="Common/header" />
+    <link rel="stylesheet" type="text/css" href="__CSS__/lottery.css">
 
   	<style type="text/css">
-		.gboy_button {
-		    position: relative;
-		    display: inline-block;
-		    background: #D0EEFF;
-		    border: 1px solid #99D3F5;
-		    border-radius: 4px;
-		    padding: 4px 12px;
-		    overflow: hidden;
-		    color: #1E88C7;
-		    text-decoration: none;
-		    text-indent: 0;
-		    line-height: 20px;
-		    top: -10px;
-		    margin-left: 20px;
+		body{
+			width: 100%;
+			background: #f02d2f;
+			background-size: 100%;
 		}
+
 		.ssrabtime {
 		    background: #fff;
 		    line-height: 10vmin;
@@ -47,371 +19,354 @@
 		    padding-left: 3%;
 		    border-bottom: 1px solid #dfdede;
 		}
+
 		.timer-m,.timer-s{
 			color: red;
 		}
   	</style>
 </head>
 
-<style>
-	body{width: 100%;background: url(__IMG__/bg_new.jpg) no-repeat #e93325;background-size: 100%;}
-</style>
+<body class="animated fadeIn">
+    <!--<div class="header">-->
+        <!--<div class="header_l">-->
+          <!--<a href="javascript:history.back();"><img src="__IMG__/lpg.png" alt=""></a>-->
+        <!--</div>-->
+        <!--<div class="header_c"> <h1>抢单</h1></div>-->
+        <!--<div class="header_r"></div>-->
+    <!--</div>-->
 
-<body>
-<div class="header">
-    <div class="header_l">
-      <a href="javascript:history.back();"><img src="__IMG__/lpg.png" alt=""></a>
+    <?php
+        $m_reg_count=get_config('m_reg_count');
+        $m_one_count=get_config('m_one_count');
 
+        $user_count=M('user')->count(1);
+        $reg_count=$m_reg_count+$user_count;
+        $online_count=$m_one_count+get_online_num();
+     ?>
+
+    <div class="slideTxtBox">
+        <div class="walletcztx_bb hd">
+            <ul>
+                <li>注册人数：{$reg_count}</li>
+                <li id="linoo">在线人数：{$online_count}</li>
+            </ul>
+        </div>
+        <div class="ssrabtime timer" date-time="{:get_config('m_w_time')}">
+            <input type="hidden" name="ss_time" value="{$send_time}">
+            <p>
+                <span class="timer-str" style="color:#000;" data-type="0">抢单倒计时：</span>
+                <span class="timer-m" id="t_h">0</span>
+                <span class="timer-s" id="t_m">0</span>
+                <span class="timer-s" id="t_s">0</span>
+            </p>
+        </div>
     </div>
-    <div class="header_c"> <h1>抢单</h1></div>
-    <div class="header_r"></div>
-</div>
-<?php
-	$m_reg_count=get_config('m_reg_count');
-	$m_one_count=get_config('m_one_count');
-
-	$user_count=M('user')->count(1);
-	$reg_count=$m_reg_count+$user_count;
-	$online_count=$m_one_count+get_online_num();
- ?>
-<div class="slideTxtBox">
-    <div class="walletcztx_bb hd">
-        <ul>
-            <li>注册人数：{$reg_count}</li>
-            <li id="linoo">在线人数：{$online_count}</li>
-        </ul>
-    </div>
-    <div class="ssrabtime timer" date-time="{:get_config('m_w_time')}">
-<input type="hidden" name="ss_time" value="{$send_time}">
-        <p>
-	    <span class="timer-str" style="color:#000;" data-type="0">抢单倒计时：</span>
-        <span class="timer-m" id="t_h">0</span>
-        <span class="timer-s" id="t_m">0</span>
-        <span class="timer-s" id="t_s">0</span>
-		</p>
-    </div>
-
-    <!-- 抢单倒计时 -->
-    <script type="text/javascript">
-    	function getNowFormatDate() {
-			var date = new Date();
-			var seperator1 = "-";
-			var seperator2 = ":";
-			var month = date.getMonth() + 1;
-			var strDate = date.getDate();
-			if (month >= 1 && month <= 9) {
-				month = "0" + month;
-			}
-			if (strDate >= 0 && strDate <= 9) {
-				strDate = "0" + strDate;
-			}
-			var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
-					+ " " + date.getHours() + seperator2 + date.getMinutes()
-					+ seperator2 + date.getSeconds();
-			return currentdate;
-		}
-
-		function getNowFormatDate2(y,timenow) {
-			var date = new Date(timenow);
-			var seperator1 = "-";
-			var seperator2 = ":";
-			var month = date.getMonth() + 1;
-			var strDate = date.getDate();
-			if (month >= 1 && month <= 9) {
-				month = "0" + month;
-			}
-			if (strDate >= 0 && strDate <= 9) {
-				strDate = "0" + strDate;
-			}
-			if(y==''){
-				var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
-					+ " " + date.getHours() + seperator2 + date.getMinutes()
-					+ seperator2 + date.getSeconds();
-			}else if(y=='y'){
-				var currentdate = date.getFullYear() ;
-			}else if(y=='m'){
-				var currentdate = month;
-			}else if(y=='d'){
-				var currentdate = strDate;
-
-			}else if(y=='h'){
-
-				if(date.getHours()<10){
-					var currentdate =  '0'+date.getHours()
-				}else{
-					var currentdate =  date.getHours()
-				}
-				//var currentdate =  date.getHours() ;
-
-			}else if(y=='i'){
-				if(date.getMinutes()<10){
-					var currentdate =  '0'+date.getMinutes()
-				}else{
-					var currentdate =  date.getMinutes()
-				}
-
-
-			}else if(y=='s'){
-				if(date.getSeconds()<10){
-					var currentdate =  '0'+date.getSeconds()
-				}else{
-					var currentdate =  date.getSeconds()
-				}
-				//var currentdate =   date.getSeconds();
-			}
-
-			return currentdate;
-		}
-
-
-		function getRTime(){
-			// var url="{:U('Panic/return_ti')}";
-   //          var data={'com_id':1};
-			//  $.post(url,data,function(mes){
-        	var timenow=$('input[name="ss_time"]').val();
-
-			now= new Date(timenow);
-			D = now.getDate()+1;
-
-
-			var isok = false;
-
-			var ymd=getNowFormatDate2('h',timenow)+':'+getNowFormatDate2('i',timenow)+':'+getNowFormatDate2('s',timenow);
-			var time_arr=$('.timer').attr('date-time');
-
-			var strs= new Array();
-			strs=time_arr.split(',');
-			var munsssss=strs.length;
-
-			for (i=0;i<strs.length ;i++ )
-			{
-				ms=strs[i].split('-');
-				//alert(ymd);alert(ms[0]);alert(ms[1]);
-				if(ymd>=ms[0] && ymd<ms[1]){
-					//alert(munsssss);
-					$('.timer-str').text('剩余时间：');
-					var end_time= getNowFormatDate2('y',timenow)+'/'+getNowFormatDate2('m',timenow)+'/'+getNowFormatDate2('d',timenow)+' '+ms[1];
-					$('.timer-str').attr('data-type','1');
-
-					isok = true;
-					break;
-				}
-
-
-			}
-
-			if(!isok){
-
-				ms_nwo=strs[0].split('-');
-				ms_two=strs[1].split('-');
-
-				var a = parseFloat(getNowFormatDate2('h',timenow)+""+getNowFormatDate2('i',timenow));
-
-				var nYear=getNowFormatDate2('y',timenow);
-				var nMonth=getNowFormatDate2('m',timenow);
-				if(D>31){
-					D=1;
-					nMonth=parseInt(nMonth)+1;
-				}
-
-				if(a < parseFloat(ms_nwo[0].replace(":", ""))){
-
-					var end_time= nYear +"/"+nMonth+"/"+D+' '+ms_nwo[0];
-				}else if(a > parseFloat(ms_two[0].replace(":", ""))){
-
-					var end_time= nYear +"/"+nMonth+"/"+D+' '+ms_nwo[1];
-				}else if(a > parseFloat(ms_nwo[1].replace(":", ""))){
-
-					var end_time= nYear +"/"+nMonth+"/"+D+' '+ms_two[0];
-				}else if(a = parseFloat(ms_nwo[0].replace(":", ""))){
-
-					var end_time= nYear +"/"+nMonth+"/"+D+' '+ms_two[0];
-				}
-
-
-			}
-			//alert(end_time);
-			var EndTime= new Date(end_time+':00');
-			//var EndTime= new Date('2017/07/20 12:30:20');
-			var NowTime = new Date(timenow);
-
-			var t =EndTime.getTime() - NowTime.getTime();
-			var ti2 = Date.parse(new Date(timenow));
-			var tim= parseInt(ti2 / 1000)+1;
-			var iiss=formatDateTime(tim);
-			$('input[name="ss_time"]').val(iiss);
-			var d=Math.floor(t/1000/60/60/24);
-			var h=Math.floor(t/1000/60/60%24);
-			var m=Math.floor(t/1000/60%60);
-			var s=Math.floor(t/1000%60);
-
-
-				if(s<=0 &&  m<=0 &&  h<=0){
-
-					var type=$('.timer-str').attr('data-type');
-					if(type=='0'){
-						//alert('认筹开始了');
-						//location.reload();
-					}else{
-						//alert('认筹结束了');
-						//location.reload();
-					}
-
-				}else{
-					//document.getElementById("t_d").innerHTML = d + "天";
-					document.getElementById("t_h").innerHTML = h + "时";
-					document.getElementById("t_m").innerHTML = m + "分";
-					document.getElementById("t_s").innerHTML = s + "秒";
-				}
-
-        // });
-
-
-
-			}
-		setInterval(getRTime,1000);
-		function formatDateTime(timeStamp) {
-    var date = new Date();
-    date.setTime(timeStamp * 1000);
-    var y = date.getFullYear();
-    var m = date.getMonth() + 1;
-    m = m < 10 ? ('0' + m) : m;
-    var d = date.getDate();
-    d = d < 10 ? ('0' + d) : d;
-    var h = date.getHours();
-    h = h < 10 ? ('0' + h) : h;
-    var minute = date.getMinutes();
-    var second = date.getSeconds();
-    minute = minute < 10 ? ('0' + minute) : minute;
-    second = second < 10 ? ('0' + second) : second;
-    return y + '/' + m + '/' + d+' '+h+':'+minute+':'+second;
-};
-	</script>
-
-
-</div>
 
 	<div class="goldContent">
+        <div class="lotteryWraper">
+            <div class="lotteryBox" id="lotteryBox">
+                <ul>
+                    <li class="lottery-unit-0">
+                        <img src="__IMG__/ward1.png" alt=""/>
+                        <div class="shade"></div>
+                    </li>
+                    <li class="lottery-unit-1">
+                        <img src="__IMG__/ward2.png" alt=""/>
+                        <div class="shade"></div>
+                    </li>
+                    <li class="lottery-unit-2">
+                        <img src="__IMG__/ward3.png" alt=""/>
+                        <div class="shade"></div>
+                    </li>
+                    <li class="lottery-unit-7">
+                        <img src="__IMG__/ward0.png" alt=""/>
+                        <div class="shade"></div>
+                    </li>
 
-		<div class="turntable-bg">
+                    <li class="lotteryBtn pr">
+                        <!--<img src="__IMG__/pointer.png" alt=""/>-->
+                    </li>
 
-			<div class="pointer"><img src="__IMG__/pointer.png" alt="pointer"></div>
-
-			<div class="rotate"><img id="rotate" src="__IMG__/turntable2_new.png" alt="turntable"></div>
-
-		</div>
-
-
-		<div class="paiMingAllDiv list_Content" style="margin-top:20px;">
-			<div class="titleDiv">
-				<div class="title_Div">
-					<h3 style="font-size: 4.6vmin;">抢单风云榜</h3>
-				</div>
-				<span class="line_1px"></span>
-			</div>
-
-			<div class="contentDiv">
-				<div class="list_PaiMing">
-					<div class="list_Div">
-						<div class="bg_Dashed"></div>
-
-						<div class="all_List_Div">
-							<div class="txtMarquee-top">
-							    <div class="bd">
-							        <ul class="infoList" style="margin-top:5%;">
-										<volist name="orderbuy" id="foo">
-							            <li><span class="date">{$foo['money']|intval=###}金额</span>{$foo['account']|mobile_hide}</li>
-										</volist>
-							        </ul>
-							    </div>
-							</div>
-
-							<script type="text/javascript">
-							    jQuery(".txtMarquee-top").slide({mainCell:".bd ul",autoPlay:true,effect:"topMarquee",vis:5,interTime:50});
-							</script>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+                    <li class="lottery-unit-3">
+                        <img src="__IMG__/ward5.png" alt=""/>
+                        <div class="shade"></div>
+                    </li>
+                    <li class="lottery-unit-6">
+                        <img src="__IMG__/ward1.png" alt=""/>
+                        <div class="shade"></div>
+                    </li>
+                    <li class="lottery-unit-5">
+                        <img src="__IMG__/ward2.png" alt=""/>
+                        <div class="shade"></div>
+                    </li>
+                    <li class="lottery-unit-4">
+                        <img src="__IMG__/ward10.png" alt=""/>
+                        <div class="shade"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
 	</div>
 
-<script type="text/javascript" src="__JS1__/awardRotate.js"></script>
-<include file="Common/footer" />
+    <include file="Common/footer" />
 
-<!-- 抢单转盘 -->
-<script type="text/javascript">
-$(function (){
-	var rotateTimeOut = function (){
-		$('#rotate').rotate({
-			angle:0,
-			animateTo:2160,
-			duration:8000,
-			callback:function (){
-				alert('网络超时，请检查您的网络设置！');
-			}
-		});
-	};
+    <script type="text/javascript">
+        (function (doc, win) {
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function () {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    if (clientWidth >= 1200) {
+                        docEl.style.fontSize = '100px';
+                    } else {
+                        docEl.style.fontSize = 100 * (clientWidth / 640) + 'px';
+                    }
+                };
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
+        })(document, window);
+    </script>
 
-	var bRotate = false;
+    <script type="text/javascript">
+        function getNowFormatDate2(y,timenow) {
+            var date = new Date(timenow);
+            var seperator1 = "-";
+            var seperator2 = ":";
+            var month = date.getMonth() + 1;
+            var strDate = date.getDate();
+            var currentdate = '';
 
-	var rotateFn = function (awards, angles, txt){
-		bRotate = !bRotate;
-		$('#rotate').stopRotate();
-		$('#rotate').rotate({
-			angle:0,
-			animateTo:angles+1800,
-			duration:3000,
-			callback:function (){
-				if(awards!=3){
-					var r=confirm("恭喜!排到"+txt+"是否排单?");
-	  				if(r==true){
-	  					$.post("{:U('/Panic/GoPay')}", {}, function(data) {
-	  						alert(data.message);
-	  						if(data.status==1){
-	  							window.location.href=data.url;
-	  						}
+            if (month >= 1 && month <= 9) {
+                month = "0" + month;
+            }
+            if (strDate >= 0 && strDate <= 9) {
+                strDate = "0" + strDate;
+            }
+            if(y===''){
+                currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+                    + " " + date.getHours() + seperator2 + date.getMinutes()
+                    + seperator2 + date.getSeconds();
+            }else if(y==='y'){
+                currentdate = date.getFullYear() ;
+            }else if(y==='m'){
+                currentdate = month;
+            }else if(y==='d'){
+                currentdate = strDate;
 
-	  					},"json");
-	  				}
-				}else{
-					alert(txt);
-				}
+            }else if(y==='h'){
+                if(date.getHours()<10){
+                    currentdate =  '0'+date.getHours()
+                }else{
+                    currentdate =  date.getHours()
+                }
+            }else if(y==='i'){
+                if(date.getMinutes()<10){
+                    currentdate =  '0'+date.getMinutes()
+                }else{
+                    currentdate =  date.getMinutes()
+                }
+            }else if(y==='s'){
+                if(date.getSeconds()<10){
+                    currentdate =  '0'+date.getSeconds()
+                }else{
+                    currentdate =  date.getSeconds()
+                }
+            }
+            return currentdate;
+        }
 
-				bRotate = !bRotate;
+        function getRTime(){
+            var timenow=$('input[name="ss_time"]').val();
+            var end_time = '';
+            now= new Date(timenow);
+            D = now.getDate()+1;
+            var isok = false;
+            var ymd=getNowFormatDate2('h',timenow)+':'+getNowFormatDate2('i',timenow)+':'+getNowFormatDate2('s',timenow);
+            var time_arr=$('.timer').attr('date-time');
+            var strs=time_arr.split(',');
 
-			}
-		})
-	};
+            for (i=0;i<strs.length ;i++ ) {
+                ms=strs[i].split('-');
+                if(ymd>=ms[0] && ymd<ms[1]){
+                    $('.timer-str').text('剩余时间：');
+                    end_time= getNowFormatDate2('y',timenow)+'/'+getNowFormatDate2('m',timenow)+'/'+getNowFormatDate2('d',timenow)+' '+ms[1];
+                    $('.timer-str').attr('data-type','1');
+                    isok = true;
+                    break;
+                }
+            }
 
-	$('.pointer').click(function (){
+            if(!isok){
+                ms_nwo=strs[0].split('-');
+                ms_two=strs[1].split('-');
 
-		if(bRotate)return;
+                var a = parseFloat(getNowFormatDate2('h',timenow)+""+getNowFormatDate2('i',timenow));
+                var nYear=getNowFormatDate2('y',timenow);
+                var nMonth=getNowFormatDate2('m',timenow);
+                if(D>31){
+                    D=1;
+                    nMonth=parseInt(nMonth)+1;
+                }
 
-        $.post("{:U('/Panic/getRandOrderMoney')}", {}, function(res) {
-        	var result = res.data;
-        	console.log(res);
-        	if(res.status=="1"){
-        		rotateFn(parseInt(result.i), parseInt(result.c), result.tip);
-        	}else{
-        		alert(result);
-        	}
+                if(a < parseFloat(ms_nwo[0].replace(":", ""))){
+                    end_time= nYear +"/"+nMonth+"/"+D+' '+ms_nwo[0];
+                }else if(a > parseFloat(ms_two[0].replace(":", ""))){
+
+                    end_time= nYear +"/"+nMonth+"/"+D+' '+ms_nwo[1];
+                }else if(a > parseFloat(ms_nwo[1].replace(":", ""))){
+
+                    end_time= nYear +"/"+nMonth+"/"+D+' '+ms_two[0];
+                }else if(a = parseFloat(ms_nwo[0].replace(":", ""))){
+
+                    end_time= nYear +"/"+nMonth+"/"+D+' '+ms_two[0];
+                }
 
 
+            }
+            var EndTime= new Date(end_time+':00');
+            var NowTime = new Date(timenow);
 
+            var t =EndTime.getTime() - NowTime.getTime();
+            var ti2 = Date.parse(new Date(timenow));
+            var tim= parseInt(ti2 / 1000)+1;
+            var iiss=formatDateTime(tim);
+            $('input[name="ss_time"]').val(iiss);
+            var d=Math.floor(t/1000/60/60/24);
+            var h=Math.floor(t/1000/60/60%24);
+            var m=Math.floor(t/1000/60%60);
+            var s=Math.floor(t/1000%60);
 
-        },"json");
+            if(s<=0 &&  m<=0 &&  h<=0){
+                var type=$('.timer-str').attr('data-type');
+                if(type==='0'){
+                    //alert('认筹开始了');
+                    //location.reload();
+                }else{
+                    //alert('认筹结束了');
+                    //location.reload();
+                }
+            }else{
+                //document.getElementById("t_d").innerHTML = d + "天";
+                document.getElementById("t_h").innerHTML = h + "时";
+                document.getElementById("t_m").innerHTML = m + "分";
+                document.getElementById("t_s").innerHTML = s + "秒";
+            }
 
+        }
+        setInterval(getRTime,1000);
+        function formatDateTime(timeStamp) {
+            var date = new Date();
+            date.setTime(timeStamp * 1000);
+            var y = date.getFullYear();
+            var m = date.getMonth() + 1;
+            m = m < 10 ? ('0' + m) : m;
+            var d = date.getDate();
+            d = d < 10 ? ('0' + d) : d;
+            var h = date.getHours();
+            h = h < 10 ? ('0' + h) : h;
+            var minute = date.getMinutes();
+            var second = date.getSeconds();
+            minute = minute < 10 ? ('0' + minute) : minute;
+            second = second < 10 ? ('0' + second) : second;
+            return y + '/' + m + '/' + d+' '+h+':'+minute+':'+second;
+        }
+    </script>
 
-	});
+    <script type="text/javascript">
+        var count = 8; //位置总数
+        var speed = 10; //初始速度
+        var timer = 0; //定时器时间
+        var currentIndex = -1; //转动的当前位置
+        var rotateNum = 0; //转动次数
+        var basicCycle = 50; //运动初始次数
+        var prizePlace = -1; //中奖位置
+        var isClick = false; //是否重复点击抽奖
+        var parentDom = null; //根dom
+        var flag = null;
+        var flag2 = null;
+        var tip = null;
 
-});
+        $('#lotteryBox').find('.lotteryBtn').on('click',function () {
+            parentDom = $('#lotteryBox');
 
-function rnd(n, m){
+            if (isClick) { //防止在转动过程中,重复点击抽奖按钮
+                return false
+            } else {
+                speed = 100;
+                rotateNum = 0;
+                $.post("{:U('/Panic/getRandOrderMoney')}", {}, function(res) {
+                    var result = res.data;
+                    console.log(res);
+                    if(res.status === "1"){
+                        flag = parseInt(result.i);
+                        flag2 = parseInt(result.c);
+                        tip = result.tip;
+                        turning();
+                    }else{
+                        alert(result);
+                    }
+                },"json");
+                isClick = true; //一次完成后，可继续抽
+            }
+        });
 
-	return Math.floor(Math.random()*(m-n+1)+n)
+        function addNextItemClass () {
+            parentDom.find('.lottery-unit-' + currentIndex).removeClass("active");
+            currentIndex += 1;
+            if (currentIndex >= count) {
+                currentIndex = 0;
+            }
+            parentDom.find('.lottery-unit-' + currentIndex).addClass('active');
+            return false
+        }
 
-}
-</script>
+        function turning() {
+            rotateNum += 1;
+            addNextItemClass();
+
+            if (rotateNum > basicCycle + 10 && prizePlace === currentIndex) {
+                clearTimeout(timer);
+                prizePlace = -1;
+                timer = 0;
+                if (flag === 0 || flag2 === 0) {
+                    alert(tip)
+                } else {
+                    var r = confirm("恭喜！排到" + tip +"，是否排单？");
+                    if(r){
+                        $.post("{:U('/Panic/GoPay')}", {}, function(data) {
+                            alert(data.message);
+                            if(data.status === 1){
+                                window.location.href=data.url;
+                            }
+                        },"json");
+                    }
+                }
+                isClick = false;
+            } else {
+                if (rotateNum < basicCycle) {
+                    speed -= 10
+                } else if (rotateNum === basicCycle) {
+                    var tmp = Math.floor(Math.random() * count);
+                    tmp/2 === 0 ? prizePlace = flag : prizePlace = flag2;
+                    console.log(prizePlace)
+                } else {
+                    if (rotateNum > basicCycle + 10 && (prizePlace === 0 && currentIndex === 7) || prizePlace === currentIndex + 1) {
+                        speed += 100;
+                    } else {
+                        speed += 20;
+                    }
+                }
+                if (speed<40) {
+                    speed=40;
+                }
+                timer = setTimeout(turning.bind(this.turning), speed); //此处使用bind(),防止setTimeout改变this的指向
+            }
+        }
+
+        // 解决移动端:active伪类无效的问题
+        document.body.addEventListener('touchstart', function () {});
+    </script>
 </body>
 </html>

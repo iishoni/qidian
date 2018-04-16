@@ -1,74 +1,79 @@
-﻿<include file="Common/header" />
-    <body>
-        <div class="header">
-            <div class="header_l">
-                <a href="javascript:history.back()"><img src="__IMG__/lpg.png" alt=""></a>
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <include file="Common/header" />
+</head>
 
-            </div>
-            <div class="header_c"> <h1>提现</h1></div>
-            <div class="header_r"></div>
-            <!-- <span><a href=""><img src="" alt=""></a></span> -->
+<body class="animated fadeIn">
+    <div class="header">
+        <div class="header_l">
+            <a href="javascript:history.back()"><img src="__IMG__/lpg.png" alt=""></a>
+
         </div>
+        <div class="header_c"> <h1>提现</h1></div>
+        <div class="header_r"></div>
+        <!-- <span><a href=""><img src="" alt=""></a></span> -->
+    </div>
 
-        <div class="ticket">
-            <form  method="post" action="{:U('GetMoney')}"  class="myform"  >
-                <table>
-                    <tr>
-                        <th width="100"  style="text-align:right;font-size:14px;">选择钱包：</th>
-                        <td>
-                            <select name="pay_type" id="wallet_type_head" class="textbt">
-                                <option value="1" selected>抢单股金 (余额: {$s_info['common_num']})</option>
-                                <option value="2">股金收益 (余额: {$s_info['income_num']})</option>
-                                <option value="3">业绩红利 (余额: {$s_info['recommen_num']})</option>
-                             
-                            </select>
-                        </td>
-                    </tr>       
+    <div class="ticket">
+        <form  method="post" action="{:U('GetMoney')}"  class="myform"  >
+            <table>
+                <tr>
+                    <th width="100"  style="text-align:right;font-size:14px;">选择钱包：</th>
+                    <td>
+                        <select name="pay_type" id="wallet_type_head" class="textbt">
+                            <option value="1" selected>抢单股金 (余额: {$s_info['common_num']})</option>
+                            <option value="2">股金收益 (余额: {$s_info['income_num']})</option>
+                            <option value="3">业绩红利 (余额: {$s_info['recommen_num']})</option>
 
-                    <tr style="display:none; ">
-                        <th  style="text-align:right;font-size:14px">支付方式：</th>
-                        <td>
-                            <label>
-                                <input type="checkbox" value="1" class="ckbox2" name="receipt_type[]" checked="">
-                                支付宝支付
-                            </label>
-                            <label>
-                                <input type="checkbox" value="2" class="ckbox2" name="receipt_type[]" checked="">
-                                微信支付
-                            </label>
-                            <label>
-                                <input type="checkbox" value="3" class="ckbox2" name="receipt_type[]" checked="">
-                                银行支付
-                            </label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th style="font-size:14px;text-align:right;vertical-align:top;">金额：</th>
-                        <td>
-                            <input type="text" class="form-control get_amount textbt" placeholder="500或500的倍数" name="money" autocomplete="off" required>
+                        </select>
+                    </td>
+                </tr>
 
-                        </td>
-                    </tr>                    
-					
-					<tr>
-                        <th style="font-size:14px;text-align:right;vertical-align:top;">二级密码：</th>
-                        <td>
-                            <input type="password" class="form-control get_amount textbt" placeholder="请输入二级密码" name="password" autocomplete="off" required>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th style="font-size:14px;text-align:right;vertical-align:top;">
-                             <img src="{:U('UserCenter/verify')}" alt="" id="imgcode" onclick="change_code()" style="width: 80%;vertical-align: middle;">
-                             &nbsp;
-                        </th>
-                        <td>
-                            <input type="text" class="form-control get_amount textbt" placeholder="验证码" name="code" autocomplete="off" required>
-                        </td>
-                    </tr>
-                </table>
-                <input type="button" name="Submit" onclick="savedata()"  value="确定" style="border:0;" class="qzanbt">
-            </form>
-        </div>
+                <tr style="display:none; ">
+                    <th  style="text-align:right;font-size:14px">支付方式：</th>
+                    <td>
+                        <label>
+                            <input type="checkbox" value="1" class="ckbox2" name="receipt_type[]" checked="">
+                            支付宝支付
+                        </label>
+                        <label>
+                            <input type="checkbox" value="2" class="ckbox2" name="receipt_type[]" checked="">
+                            微信支付
+                        </label>
+                        <label>
+                            <input type="checkbox" value="3" class="ckbox2" name="receipt_type[]" checked="">
+                            银行支付
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="font-size:14px;text-align:right;vertical-align:top;">金额：</th>
+                    <td>
+                        <input type="text" class="form-control get_amount textbt" placeholder="500或500的倍数" name="money" autocomplete="off" required>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <th style="font-size:14px;text-align:right;vertical-align:top;">二级密码：</th>
+                    <td>
+                        <input type="password" class="form-control get_amount textbt" placeholder="请输入二级密码" name="password" autocomplete="off" required>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="font-size:14px;text-align:right;vertical-align:top;">
+                         <img src="{:U('UserCenter/verify')}" alt="" id="imgcode" onclick="change_code()" style="width: 80%;vertical-align: middle;">
+                         &nbsp;
+                    </th>
+                    <td>
+                        <input type="text" class="form-control get_amount textbt" placeholder="验证码" name="code" autocomplete="off" required>
+                    </td>
+                </tr>
+            </table>
+            <input type="button" name="Submit" onclick="savedata()"  value="确定" style="border:0;" class="qzanbt">
+        </form>
+    </div>
 </body>
 </html>
 <script type="text/javascript">

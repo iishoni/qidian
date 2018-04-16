@@ -161,7 +161,7 @@ class OrderReceiptModel extends ModelModel{
         switch($params['pay_type']){
 
             case '1':
-                $money_type_text='认筹股金';
+                $money_type_text='提现金额';
                 break;
 
             case '2':
@@ -647,11 +647,11 @@ class OrderReceiptModel extends ModelModel{
             $result['_status_text']='匹配成功';
 
         }elseif($result['status']=='2'){
-            $result['_status_class']='btwzbb';
+            $result['_status_class']='btwzcc';
             $result['_status_ico']='&#xe62d;';
             $result['_status_text']='全部打款';
         }elseif($result['status']=='3'){
-            $result['_status_class']='btwzcc';
+            $result['_status_class']='btwzcc_ok';
             $result['_status_ico']='&#xe62e;';
             $result['_status_text']='交易成功';
         }

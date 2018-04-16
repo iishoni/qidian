@@ -382,7 +382,7 @@ function pay_type($type)
   switch($type){
 
     case 1:
-      $type='认筹股金';
+      $type='提现金额';
     break;
 
     case 2:

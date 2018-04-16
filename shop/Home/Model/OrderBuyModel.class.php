@@ -54,18 +54,18 @@ class OrderBuyModel extends ModelModel
 			$result['_status_text']='匹配成功';
 
 		}elseif($result['status']=='2'){
-			$result['_status_class']='btwzbb';
+			$result['_status_class']='btwzcc';
 			$result['_status_ico']='&#xe62d;';
 			$result['_status_text']='全部打款';
 		}elseif($result['status']=='3'){
-			$result['_status_class']='btwzcc';
-			$result['_status_ico']='&#xe62e;';
-			$result['_status_text']='交易成功';
-		}elseif ($result['status']=='4') {
 			$result['_status_class']='btwzcc_ok';
 			$result['_status_ico']='&#xe62e;';
 			$result['_status_text']='交易成功';
-		}
+		}elseif ($result['status']=='4') {
+            $result['_status_class']='btwzcc_ok';
+            $result['_status_ico']='&#xe62e;';
+            $result['_status_text']='交易成功';
+        }
 
 		$result['pay_text']=implode('，',$pay_text);
 

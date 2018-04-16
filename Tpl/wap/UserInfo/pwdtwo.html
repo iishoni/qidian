@@ -1,38 +1,58 @@
-<include file="Common/header" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <include file="Common/header" />
+</head>
+
 <body>
-<div class="header">
-    <div class="header_l">
-      <a href="javascript:history.go(-1)"><img src="__IMG__/lpg.png" alt=""></a>
-   
+    <div class="header">
+        <div class="header_l">
+          <a href="javascript:history.go(-1)"><img src="__IMG__/lpg.png" alt=""></a>
+
+        </div>
+        <div class="header_c"><h1>修改二级密码</h1></div>
+        <div class="header_r"></div>
     </div>
-    <div class="header_c"><h1>修改二级密码</h1></div>
-    <div class="header_r"></div>
-</div>
-<form id="form" action="" method="post" >
-<div class="reggis">
-    <ul>
-        <!-- <li><i class="iconfont">&#xe615;</i> <input type="text" class="inputbb" placeholder="请输入手机号码"></li>
-        <li><i class="iconfont">&#xe6b2;</i> <input type="text" class="inputbb" placeholder="请输入校验码" style="width: 50%;"> <span><a href="">获取校验码</a></span></li> -->
-        <li><i class="iconfont">&#xe61b;</i> <input type="password" name="pwd_old" class="inputbb" placeholder="旧密码"></li>
-        <li><i class="iconfont">&#xe61b;</i> <input type="password" name="pwd" class="inputbb" placeholder="新密码"></li>
-        <li><i class="iconfont">&#xe61b;</i> <input type="password" name="pwd_com" class="inputbb" placeholder="确认新密码"></li>
-    </ul>
-</div>
-<div style="height: 5vmin;"></div>
-<div class="submit"><a href="javascript:postform()">提交</a></div>
-</form>
-</body>
-</html>
-<script type="text/javascript">
-    function postform(){
-        var url="{:U('PassWordSafe')}";
-        var post_data=$('#form').serialize();
-        $.post(url,post_data,function(data){
-                 msg_alert(data.message);
+
+    <form id="form" action="" method="post" >
+        <div class="reggis">
+            <ul>
+                <li>
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-mima"></use>
+                    </svg>
+                    <input type="password" name="pwd_old" class="inputbb" placeholder="旧密码">
+                </li>
+                <li>
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-mima"></use>
+                    </svg>
+                    <input type="password" name="pwd" class="inputbb" placeholder="新密码">
+                </li>
+                <li>
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-mimaqueren"></use>
+                    </svg>
+                    <input type="password" name="pwd_com" class="inputbb" placeholder="确认新密码">
+                </li>
+            </ul>
+        </div>
+        <div style="height: 5vmin;"></div>
+        <div class="submit"><a href="javascript:postform()">提交</a></div>
+    </form>
+
+    <script type="text/javascript">
+        function postform(){
+            var url="{:U('PassWordSafe')}";
+            var post_data=$('#form').serialize();
+            $.post(url,post_data,function(data){
+                msg_alert(data.message);
                 if(data.status==1){
                     window.location.reload();
                 }
-                
+
             },'json')
-    }
-</script>
+        }
+    </script>
+    </body>
+</html>
