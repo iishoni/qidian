@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <include file="Common/header" />
+    <link rel='stylesheet' href='__CSS__/slick.css'>
+    <link rel='stylesheet' href='__CSS__/slick-theme.css'>
+    <link rel="stylesheet" href="__CSS__/card-style.css">
+</head>
+
+<body class="animated fadeIn">
+    <div class="header">
+        <div class="header_l">
+            <a href="javascript:history.back()"><img src="__IMG__/lpg.png" alt=""></a>
+
+        </div>
+        <div class="header_c"> <h1>积分中心</h1></div>
+        <div class="header_r"></div>
+        <!-- <span><a href=""><img src="" alt=""></a></span> -->
+    </div>
+
+    <div class="card-container">
+        <div class="wrapper">
+            <div class="card normal">
+                <div class="card_image card_image_normal">
+                    <!--<img src="img/normal.png" alt="normal" />-->
+                </div>
+
+                <div class="card_level card_level_normal">{$s_info['common_num']+0}</div>
+                <div class="card_unit-name">储蓄金</div>
+                <div class="card_unit-description"></div>
+
+                <div class="card_unit_stats card_unit_stats_normal clearfix">
+                    <div class="bottom" onclick="descNormal()">
+                        <div class="stat">说明</div>
+                    </div>
+                    <div class="bottom no-border">
+                        <div class="stat">
+                            <a href="{:U('Panic/GetMoney')}" style="color: #fff">提取</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wrapper">
+            <div class="card income">
+                <div class="card_image card_image_income">
+                    <!--<img src="img/income.png" alt="income" />-->
+                </div>
+
+                <div class="card_level card_level_income">{$s_info['income_num']+0}</div>
+                <div class="card_unit-name">收益金</div>
+                <div class="card_unit-description"></div>
+
+                <div class="card_unit_stats card_unit_stats_income clearfix">
+                    <div class="bottom" onclick="descIncome()">
+                        <div class="stat">说明</div>
+                    </div>
+                    <div class="bottom no-border">
+                        <div class="stat">
+                            <a href="{:U('Panic/GetMoney')}" style="color: #fff">提取</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wrapper">
+            <div class="card extra">
+                <div class="card_image card_image_extra">
+                    <!--<img src="img/extra.png" alt="extra" />-->
+                </div>
+                <div class="card_level card_level_extra">{$s_info['recommen_num']+0}</div>
+                <div class="card_unit-name">推广奖金</div>
+                <div class="card_unit-description">
+                </div>
+
+                <div class="card_unit_stats card_unit_stats_extra clearfix">
+                    <div class="bottom" onclick="descExtra()">
+                        <div class="stat">说明</div>
+                    </div>
+                    <div class="bottom no-border">
+                        <div class="stat">
+                            <a href="{:U('Panic/GetMoney')}" style="color: #fff">提取</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src='__JS__/slick.min.js'></script>
+    <script type="text/javascript">
+        (function () {
+            var slideContainer = $('.card-container');
+            slideContainer.slick();
+
+            $('.card_image img').hide();
+            $('.slick-active').find('.card img').fadeIn(200);
+
+            // On before slide change
+            slideContainer.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+                $('.slick-active').find('.card img').fadeOut(1000);
+            });
+
+            // On after slide change
+            slideContainer.on('afterChange', function (event, slick, currentSlide) {
+                $('.slick-active').find('.card img').fadeIn(200);
+            });
+
+        })();
+
+        function descNormal() {
+            msg_alert("储蓄金")
+        }
+        function descIncome() {
+            msg_alert("收益金")
+        }
+        function descExtra() {
+            msg_alert("推广奖金")
+        }
+    </script>
+</body>
+</html>

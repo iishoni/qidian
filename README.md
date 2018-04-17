@@ -31,10 +31,10 @@
     systemctl enable mariadb
     mysql_secure_installation
     mysql -uroot -pxxx
-    create database hzxx1109_db
-    create user 'hzxx1109_f'@'%' identified by '2gQhKbz7pz0wn0O'
-    grant all privileges on hzxx1109_db.* to 'hzxx1109_f'@'%' identified by '2gQhKbz7pz0wn0O' with grant option
-    flush privileges
+    create database hzxx1109_db;
+    create user 'hzxx1109_f'@'%' identified by '2gQhKbz7pz0wn0O';
+    grant all privileges on hzxx1109_db.* to 'hzxx1109_f'@'%' identified by '2gQhKbz7pz0wn0O' with grant option;
+    flush privileges;
 
 5.导入数据库脚本：执行qidian.sql
 
